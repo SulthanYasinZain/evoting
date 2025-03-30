@@ -1,0 +1,61 @@
+"use client";
+import { useState } from "react";
+
+const tabs = ["Panduan Memulai", "Panduan Pemilih", "Panduan Admin", "FAQ"];
+
+function Home() {
+  return <p className="text-gray-700">Welcome to the Home tab</p>;
+}
+
+function About() {
+  return <p className="text-gray-700">Learn more About us</p>;
+}
+
+function Services() {
+  return <p className="text-gray-700">Discover our Services</p>;
+}
+
+function Contact() {
+  return <p className="text-gray-700">Get in touch on the Contact tab</p>;
+}
+
+const tabComponents: Record<string, () => JSX.Element> = {
+  "Panduan Memulai": Home,
+  "Panduan Pemilih": About,
+  "Panduan Admin": Services,
+  FAQ: Contact,
+};
+
+export default function Tabs() {
+  const [activeTab, setActiveTab] = useState<string>(tabs[0]);
+  const ActiveComponent =
+    tabComponents[activeTab] || (() => <p>Tab not found</p>);
+
+  return (
+    <div className="w-screen  mx-auto mt-10">
+      <h1>Pusat Bantuan Sistem Pemilu</h1>
+      <p>
+        Halaman Ini memberikan Detail Cara menggunakan Website Pemilu Fakulats
+        Hukum UPNVJ
+      </p>
+      <div className="flex border-b">
+        {tabs.map((tab) => (
+          <button
+            key={tab}
+            onClick={() => setActiveTab(tab)}
+            className={`flex-1 py-2 text-center border-b-2 transition-colors ${
+              activeTab === tab
+                ? "border-blue-500 text-blue-500"
+                : "border-transparent text-gray-500"
+            }`}
+          >
+            {tab}
+          </button>
+        ))}
+      </div>
+      <div className="p-4 bg-gray-100 rounded-b-lg mt-2 text-center">
+        <ActiveComponent />
+      </div>
+    </div>
+  );
+}

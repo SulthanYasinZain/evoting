@@ -1,9 +1,5 @@
 @import "tailwindcss";
-
-:root {
-  --background: #fcfbfb;
-  --foreground: #060606;
-}
+@import "tw-animate-css";
 
 @theme {
   --breakpoint-xs: 30rem;
@@ -15,9 +11,4 @@
 
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
 }

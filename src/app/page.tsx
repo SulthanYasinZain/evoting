@@ -5,7 +5,7 @@ import HeroStatus from "@/components/herostatus";
 
 export default function Home() {
   return (
-    <section className="flex h-[90vh] items-center">
+    <section className="flex h-[90svh] items-center">
       <div className="flex flex-col-reverse sm:flex-row justify-around sm:justify-center items-center h-full w-full">
         <div className="flex flex-col items-center sm:items-start justify-center gap-4 w-full sm:w-1/2 px-4">
           <HeroStatus title="Pemilihan Ketua BEM 2025" />
