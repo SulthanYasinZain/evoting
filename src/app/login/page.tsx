@@ -3,7 +3,7 @@ import Logo from "@/assets/images/Logo-upnvj.png";
 
 export default function Login() {
   return (
-    <section className="flex h-[90vh] items-center justify-center">
+    <section className="mx-4 flex h-[85svh] items-center justify-center">
       <form className=" bg-background  flex flex-col justify-between w-[350px] h-[400px] p-4 gap-4 rounded-lg shadow-md">
         <div className="flex flex-col justify-center items-center gap-2">
           <Image src={Logo} alt="Logo UPNVJ" width={50} height={50} />

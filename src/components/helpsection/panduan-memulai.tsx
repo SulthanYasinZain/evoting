@@ -1,6 +1,6 @@
 import Card from "@/components/helpsection/card";
-
-export default function PanduanMemulai() {
+import { memo } from "react";
+const PanduanMemulai = memo(function PanduanMemulai() {
   return (
     <div className="p-4">
       <div>
@@ -17,15 +17,17 @@ export default function PanduanMemulai() {
               <br />
               1. Buka browser web Anda dan navigasikan ke URL sistem pemilihan.
               <br />
-              2. Masukkan nama pengguna di kolom "Nama Pengguna".
+              2. Masukkan nama pengguna di kolom `&quot;`Nama Pengguna`&quot;`.
               <br />
-              3. Masukkan kata sandi di kolom "Kata Sandi".
+              3. Masukkan kata sandi di kolom `&quot;`Kata Sandi`&quot;`.
               <br />
-              4. Klik tombol "Login" untuk mengakses sistem.
+              4. Klik tombol `&quot;`Login`&quot;` untuk mengakses sistem.
             </>
           }
         />
       </div>
     </div>
   );
-}
+});
+
+export default PanduanMemulai;

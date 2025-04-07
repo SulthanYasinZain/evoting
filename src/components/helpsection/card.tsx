@@ -1,4 +1,3 @@
-import test from "@/assets/videos/2025-03-28 21-40-07.mp4";
 import React from "react";
 export default function Card({
   number,

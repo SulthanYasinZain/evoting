@@ -5,14 +5,14 @@ import Logo from "@/assets/images/Logo-upnvj.png";
 
 export default function Navbar() {
   return (
-    <nav className="w-screen p-2 border-b border-b-[#BFBFBF]">
+    <nav className="p-2 border-b border-b-[#BFBFBF]">
       <div className="flex justify-between items-center ">
-        <span className="flex items-center gap-4">
+        <Link href={"/"} className="flex items-center gap-4">
           <Image src={Logo} alt="logo" width={50} height={50} />
           <p className="text-sm sm:text-xl font-semibold">
             Fakultas Hukum UPNVJ
           </p>
-        </span>
+        </Link>
         <Link
           href={"/help"}
           className="flex items-center gap-2 border rounded p-2 w-fit"
