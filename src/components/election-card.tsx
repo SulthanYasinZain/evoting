@@ -1,8 +1,8 @@
 import { CalendarDays } from "lucide-react";
-
-const status = ({ variant }: { variant: "Active" | "closed" | "Upcoming" }) => {
+import ElectionData from "@/interfaces/electiondata";
+const status = ({ variant }: { variant: string }) => {
   switch (variant) {
-    case "Active":
+    case "active":
       return (
         <div className="bg-green-400 text-white  rounded-full px-2 py-1 text-xs font-semibold w-fit">
           Active
@@ -14,7 +14,7 @@ const status = ({ variant }: { variant: "Active" | "closed" | "Upcoming" }) => {
           Closed
         </div>
       );
-    case "Upcoming":
+    case "upcoming":
       return (
         <div className="bg-blue-400 text-white rounded-full px-2 py-1 text-xs font-semibold w-fit">
           Upcoming
@@ -23,23 +23,30 @@ const status = ({ variant }: { variant: "Active" | "closed" | "Upcoming" }) => {
   }
 };
 
-export default function ElectionCard() {
+export default function ElectionCard({
+  title,
+  date,
+  variant,
+  candidates,
+  vote,
+  create,
+}: ElectionData) {
   return (
-    <div className="bg-background border border-[#A0A0A0] w-[300px] h-fit flex flex-col p-4 gap-4 rounded-xl shadow-md">
+    <div className="bg-background border border-[#A0A0A0] w-[300px] sm:w-1/3 max-w-[400px] h-fit flex flex-col p-4 gap-4 rounded-xl shadow-md">
       <div className="space-y-2">
-        <h1 className="text-xl font-semibold">Pemilihan BEM 2025</h1>
+        <h1 className="text-xl font-semibold">{title}</h1>
         <span className="flex gap-4 items-center">
           <CalendarDays />
-          <p className="text-sm">Tanggal: 1 Januari 2024</p>
+          <p className="text-sm">{date}</p>
         </span>
-        {status({ variant: "Upcoming" })}
+        {status({ variant })}
       </div>
       <span className="flex justify-between">
         <div className="w-1/2">
-          <p>Total Kandidat</p> <h2 className="font-semibold ">2</h2>
+          <p>Total Kandidat</p> <h2 className="font-semibold ">{candidates}</h2>
         </div>
         <div className="w-1/2">
-          <p>Total Vote</p> <h2 className="font-semibold">278</h2>
+          <p>Total Vote</p> <h2 className="font-semibold">{vote}</h2>
         </div>
       </span>
 
@@ -49,7 +56,7 @@ export default function ElectionCard() {
         </div>
         <div className="w-1/2">
           <p className="text-sm text-neutral-600">Dibuat Pada</p>
-          <h2>23 Oktober 2024</h2>
+          <h2>{create}</h2>
         </div>
       </span>
 
