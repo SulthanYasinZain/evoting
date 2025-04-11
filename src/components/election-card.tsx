@@ -1,4 +1,5 @@
 import { CalendarDays } from "lucide-react";
+import Link from "next/link";
 import ElectionData from "@/interfaces/electiondata";
 const status = ({ variant }: { variant: string }) => {
   switch (variant) {
@@ -24,6 +25,7 @@ const status = ({ variant }: { variant: string }) => {
 };
 
 export default function ElectionCard({
+  id,
   title,
   date,
   variant,
@@ -61,10 +63,13 @@ export default function ElectionCard({
       </span>
 
       <span className="flex w-full items-center justify-center gap-2">
-        <button className="bg-background border-2 border-primary text-foreground rounded w-1/2 py-2 px-6">
+        <Link
+          href={`/admin/detail/${id}`}
+          className="bg-background border-2 text-center border-primary text-foreground rounded w-1/2 py-2 px-6"
+        >
           Detail
-        </button>
-        <button className="bg-primary text-background rounded w-1/2 py-2 px-6">
+        </Link>
+        <button className="bg-primary text-white rounded w-1/2 py-2 px-6">
           Delete
         </button>
       </span>

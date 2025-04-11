@@ -117,6 +117,7 @@ export default function Home() {
       <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-4 mt-4">
         {filteredData.map((election) => (
           <ElectionCard
+            id={election.id}
             key={election.id}
             title={election.title}
             date={election.date}

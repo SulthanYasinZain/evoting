@@ -39,7 +39,7 @@ const data = [
 
 export default function LineChartCard() {
   return (
-    <div style={{ width: "100%", height: 400 }}>
+    <div className="w-1/2 h-fit rounded-xl shadow-md">
       <ResponsiveContainer>
         <LineChart data={data}>
           <XAxis
@@ -72,7 +72,7 @@ export default function LineChartCard() {
             dataKey="kandidat3"
             stroke="#FFBB28"
             name="Kandidat 3"
-            dot={false} 
+            dot={false}
           />
         </LineChart>
       </ResponsiveContainer>

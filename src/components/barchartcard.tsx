@@ -10,7 +10,7 @@ const data = [
 
 export default function BarChartCard() {
   return (
-    <div style={{ width: "400px", height: "400px" }}>
+    <div className="w-full h-full">
       <ResponsiveContainer>
         <BarChart data={data}>
           <Legend />

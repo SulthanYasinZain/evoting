@@ -1,9 +1,13 @@
 "use client";
 import { useState } from "react";
 import PanduanMemulai from "@/components/helpsection/panduan-memulai";
+
 export default function Help() {
+  const tabs = isAdmin
+    ? ["Panduan Memulai", "Panduan Admin", "FAQ"]
+    : ["Panduan Memulai", "FAQ"];
+
   const [currentTabs, setCurrentTabs] = useState(0);
-  const tabs = ["Panduan Memulai", "Panduan Pemilihan", "panduan Admin", "FAQ"];
 
   return (
     <section className="flex flex-col mt-8 justify-center mx-4 sm:mx-12 gap-8">
@@ -19,26 +23,24 @@ export default function Help() {
 
       <div className="border border-[#A0A0A0] rounded">
         <span className="flex justify-evenly  ">
-          {tabs.map((tab) => (
+          {tabs.map((tab, index) => (
             <button
               key={tab}
               className={`px-4 py-2 text-sm sm:text-xl text-center border-b border-[#A0A0A0] transition-colors  sm:w-full ${
-                currentTabs === tabs.indexOf(tab)
+                currentTabs === index
                   ? "border-b-2 border-red-600 text-red-600"
                   : "text-gray-500"
               }`}
-              onClick={() => setCurrentTabs(tabs.indexOf(tab))}
+              onClick={() => setCurrentTabs(index)}
             >
               {tab}
             </button>
           ))}
         </span>
-        {currentTabs === 0 && (
-          <PanduanMemulai /> // Assuming this is the component for "Panduan Memulai"
-        )}
-        {currentTabs === 1 && <div className="p-4">Panduan Pemilihan</div>}
-        {currentTabs === 2 && <div className="p-4">Panduan Admin</div>}
-        {currentTabs === 3 && <div className="p-4">FAQ</div>}
+
+        {currentTabs === 0 && <PanduanMemulai />}
+        {currentTabs === 1 && <div>{isAdmin ? "Panduan Admin" : "FAQ"}</div>}
+        {currentTabs === 2 && isAdmin && <div>FAQ</div>}
       </div>
     </section>
   );

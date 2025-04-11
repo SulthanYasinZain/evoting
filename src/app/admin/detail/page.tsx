@@ -1,3 +1,4 @@
+"use client";
 import { CalendarDays } from "lucide-react";
 import TotalVotes from "@/components/totalvotes";
 import BarChartCard from "@/components/barchartcard";
@@ -31,7 +32,7 @@ export default function Detail() {
     }
   };
   return (
-    <section>
+    <section className="flex flex-col h-[90svh]">
       <span className="flex justify-between">
         <div className="space-y-2">
           <h1 className="text-xl font-semibold">Pemilihan BEM 2025</h1>
@@ -45,11 +46,28 @@ export default function Detail() {
           Delete
         </button>
       </span>
-      <div className="flex justify-evenly">
+      {/* 
+      <div className="flex h-full">
+      <LineChartCard />
+
+      <div className="w-1/2">
+        <div className="flex">
+        
         <TotalVotes />
-        <BarChartCard />
-        <PiechartCard />
+        </div>
+        
+      </div>
+      </div> */}
+
+      <div className="flex h-full gap-4 m-4">
         <LineChartCard />
+        <div className="flex flex-col w-1/2 gap-4">
+          <div className="flex h-1/2 gap-4">
+            <PiechartCard />
+            <TotalVotes />
+          </div>
+          <BarChartCard />
+        </div>
       </div>
     </section>
   );
