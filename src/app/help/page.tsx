@@ -3,6 +3,7 @@ import { useState } from "react";
 import PanduanMemulai from "@/components/helpsection/panduan-memulai";
 
 export default function Help() {
+  const isAdmin = true; // Replace with actual admin check logic
   const tabs = isAdmin
     ? ["Panduan Memulai", "Panduan Admin", "FAQ"]
     : ["Panduan Memulai", "FAQ"];
