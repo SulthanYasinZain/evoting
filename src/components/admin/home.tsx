@@ -9,12 +9,8 @@ export default function AdminHomepage({ data }: any) {
   const [search, setSearch] = useState<string>("");
   const [filter, setFilter] = useState<string>("all");
   const election = data.data;
-  console.log("Elections Data:", data.data);
 
   const filteredData = election.filter((election: any) => {
-    console.log("data prop:", data);
-    console.log("elections array:", election);
-
     return (
       election.title.toLowerCase().includes(search.toLowerCase()) &&
       (filter === "all" || election.status === filter)

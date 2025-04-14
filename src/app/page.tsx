@@ -16,6 +16,8 @@ export default async function Home() {
   );
 
   const data = await activeElection.json();
+  const { title } = data.data;
+
   console.log(data);
 
   return (
@@ -23,7 +25,7 @@ export default async function Home() {
       <div className="flex flex-col-reverse sm:flex-row justify-around sm:justify-center items-center h-full w-full">
         <div className="flex flex-col items-center sm:items-start justify-center gap-4 w-full sm:w-1/2 px-4">
           {data.message === "No active election found" ? null : (
-            <HeroStatus title="{data}" />
+            <HeroStatus title={title} />
           )}
           <h1 className="text-3xl sm:text-6xl font-bold text-center sm:text-left">
             Website Pemilu Fakultas Hukum UPNVJ

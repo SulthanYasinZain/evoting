@@ -5,6 +5,7 @@ const nextConfig: NextConfig = {
 
   images: {
     dangerouslyAllowSVG: true,
+    domains: ["evoting-backend-master-svltv7.laravel.cloud"],
     remotePatterns: [
       {
         protocol: "https",

@@ -1,8 +1,13 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+"use client";
 import Input from "@/components/ui/input";
 import CardData from "@/components/addPage/card-data";
 import Link from "next/link";
-
+import { useActionState } from "react";
+import AddElection from "@/app/action/addElection";
+import addtest from "@/app/action/addtest";
 export default function Add() {
+  const [state, AddAction, IsLoading] = useActionState(AddElection, null);
   return (
     <section className=" mt-4 mx-4">
       <div className="space-y-4">
@@ -15,18 +20,19 @@ export default function Add() {
         </p>
       </div>
 
-      <form className="flex flex-col gap-4" action="">
+      <form className="flex flex-col gap-4" action={AddAction}>
         <Input
           type="text"
           placeholder="Prabowo & Gibran"
           label="Nama Pemilu"
-          name="Pemlilu"
+          name="JudulPemilu"
+          required={true}
         />
 
-        <Input type="date" label="Nama Pemilu" name="Pemlilu" />
-        <CardData />
-        <CardData />
-        <CardData />
+        <Input type="date" label="Nama Pemilu" name="TanggalPemlilu" />
+        <CardData number={1} />
+        <CardData number={2} />
+        <CardData number={3} />
 
         <div className="flex gap-4 justify-end ">
           <button className="bg-primary text-white py-2 px-4 rounded-lg hover:bg-opacity-80 transition duration-200 ease-in-out w-full sm:w-fit">

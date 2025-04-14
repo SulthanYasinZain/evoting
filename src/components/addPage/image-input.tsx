@@ -30,6 +30,7 @@ export default function ImageInput() {
           type="file"
           accept="image/*"
           className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+          name="image_url[]"
           onChange={(e) => {
             setImage(e.target.files?.[0] || null);
           }}
