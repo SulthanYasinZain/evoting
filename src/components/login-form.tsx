@@ -28,7 +28,7 @@ function SubmitButton() {
 }
 
 export default function LoginForm() {
-  const [state, formAction, isPending] = useActionState(loginUser, null);
+  const [state, formAction] = useActionState(loginUser, null);
 
   return (
     <div className="w-full max-w-md bg-white rounded-lg border border-gray-100 p-8 transition-all duration-300 hover:translate-y-[-2px]">

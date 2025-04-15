@@ -16,7 +16,6 @@ export default async function Home() {
   );
 
   const data = await activeElection.json();
-  const title = data?.data?.title ?? null;
   return (
     <div className="flex h-[calc(100dvh-5rem)] items-center justify-center">
       <div className="container mx-auto px-4">

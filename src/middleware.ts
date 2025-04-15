@@ -5,7 +5,7 @@ export function middleware(req: NextRequest) {
   const token = req.cookies.get("token")?.value;
   console.log("Token:", token);
 
-  const token_type = req.cookies.get("token_type")?.value;
+  // const token_type = req.cookies.get("token_type")?.value;
   const protectedPaths = ["/home", "/admin"];
   const pathname = req.nextUrl.pathname;
 
