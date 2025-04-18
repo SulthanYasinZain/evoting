@@ -1,7 +1,8 @@
 import ElectionManagement from "@/components/election-management";
 import { toast } from "sonner";
 import { cookies } from "next/headers";
-export default async function Home() {
+import { Suspense } from "react";
+async function Home() {
   const cookieStore = await cookies();
   const token = cookieStore.get("token")?.value;
 
@@ -21,4 +22,12 @@ export default async function Home() {
     toast.error("Failed to fetch election list");
   }
   return <ElectionManagement electionData={electionList.data} />;
+}
+
+export default function page() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <Home />
+    </Suspense>
+  );
 }

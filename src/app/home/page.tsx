@@ -1,5 +1,6 @@
 /*eslint-disable @typescript-eslint/no-explicit-any */
 
+import { Suspense } from "react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import ElectionHeader from "@/components/election-header";
@@ -53,7 +54,7 @@ async function fetchElectionData() {
   return { activeElectionId, activeElectionTitle, candidates, canVote };
 }
 
-export default async function HomePage() {
+async function HomePage() {
   const {
     activeElectionId,
     activeElectionTitle,
@@ -113,5 +114,13 @@ export default async function HomePage() {
         ))}
       </div>
     </div>
+  );
+}
+
+export default function Page() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <HomePage />
+    </Suspense>
   );
 }

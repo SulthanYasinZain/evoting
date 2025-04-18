@@ -116,10 +116,10 @@ export default function ElectionManagement({
               </div>
             </CardContent>
 
-            <CardFooter className="flex justify-between p-4 pt-0 border-t border-gray-100">
+            <CardFooter className="flex gap-4 justify-between p-4 pt-0 border-t border-gray-100">
               <Link
                 href={`/admin/detail/${election.id}`}
-                className="flex-1 mr-2"
+                className="flex-1 border rounded p-2 text-center"
               >
                 Details
               </Link>
