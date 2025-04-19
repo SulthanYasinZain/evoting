@@ -17,7 +17,7 @@ export default function LoginForm() {
   return (
     <form
       action={loginAction}
-      className="max-w-[400px] p-4 border border-neutral-200 rounded-xl"
+      className="w-[350px] sm:w-[400px] p-4 border border-neutral-200 rounded-xl"
     >
       <div className="flex flex-col justify-center items-center gap-2 text-center ">
         <Image src={Logo} alt="Logo UPN" width={50} height={50} className="" />

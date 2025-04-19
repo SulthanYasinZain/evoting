@@ -21,7 +21,9 @@ export default async function Navbar() {
             className="h-10 w-10"
           />
 
-          <span className="text-lg font-medium">Fakultas Hukum UPNVJ</span>
+          <span className="text-sm sm:text-xl font-medium">
+            Fakultas Hukum UPNVJ
+          </span>
         </Link>
         <div className="flex items-center gap-4">
           {token && <LogoutButton />}
@@ -30,7 +32,7 @@ export default async function Navbar() {
             className="flex gap-2 p-2 rounded text-sm font-medium text-gray-700 hover:bg-neutral-200"
           >
             <HelpCircle className="h-5 w-5" />
-            <span>Help</span>
+            <span>Bantuan</span>
           </Link>
         </div>
       </div>

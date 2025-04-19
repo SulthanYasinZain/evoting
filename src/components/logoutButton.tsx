@@ -6,7 +6,7 @@ export default function LogoutButton() {
     <form action={Logout}>
       <button className="flex gap-2 p-2 rounded text-sm font-medium text-gray-700 hover:bg-neutral-200">
         <LogOut className="h-5 w-5" color={"black"} />
-        Log Out
+        Keluar
       </button>
     </form>
   );
