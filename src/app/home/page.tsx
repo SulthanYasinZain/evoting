@@ -6,7 +6,8 @@ import Image from "next/image";
 import ElectionHeader from "@/components/election-header";
 import HomeEptystate from "@/components/homeeptystate";
 import { cookies } from "next/headers";
-
+import VoteAction from "../action/vote-candidates";
+import { ADDRCONFIG } from "dns";
 async function fetchElectionData() {
   const cookieStore = await cookies();
   const token = cookieStore.get("token")?.value;
@@ -99,12 +100,20 @@ async function HomePage() {
               <p className="text-gray-600 text-sm mb-4">{candidate.vision}</p>
 
               <div className="flex gap-2">
-                <Button
-                  className="flex-1 bg-gray-800 hover:bg-gray-700 text-white"
-                  disabled={!canVote}
-                >
-                  Vote
-                </Button>
+                <form action={VoteAction}>
+                  <input
+                    type="hidden"
+                    name="candidate_id"
+                    value={candidate.id}
+                  />
+                  <Button
+                    className="flex-1 bg-gray-800 hover:bg-gray-700 text-white"
+                    disabled={!canVote}
+                    type="submit"
+                  >
+                    Vote
+                  </Button>
+                </form>
                 <Button variant="outline" className="flex-1">
                   Details
                 </Button>
