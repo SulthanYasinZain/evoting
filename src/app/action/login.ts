@@ -39,5 +39,5 @@ export default async function Login(prevstate: any, formData: FormData) {
   cookieStore.set("token", token, options);
   //   cookieStore.set("token_type", token_type, options);
 
-  redirect("/home");
+  redirect("/homepage");
 }
