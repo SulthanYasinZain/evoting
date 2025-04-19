@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import EditDialog from "./edit-dialog";
 import { useState } from "react";
 import {
   Calendar,
@@ -60,8 +61,6 @@ export default function DashboardManagement({
   const totalVotes = candidates.length * 0; // placeholder
 
   const handleSaveCandidate = () => {
-    // Logic to save the candidate (for example, sending the data to your API)
-    console.log("Saving candidate:", currentCandidate);
     setEditDialogOpen(false); // Close the dialog after saving
   };
 
@@ -267,7 +266,11 @@ export default function DashboardManagement({
               </div>
             </CardContent>
             <CardFooter>
-              <Button variant={"outline"} className="flex-1">
+              <Button
+                onClick={() => setEditDialogOpen(true)}
+                variant={"outline"}
+                className="flex-1"
+              >
                 Edit
               </Button>
               <Button

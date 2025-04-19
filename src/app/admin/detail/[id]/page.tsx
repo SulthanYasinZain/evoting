@@ -19,7 +19,7 @@ interface PageProps {
 }
 
 export default async function ElectionDetailPage({ params }: PageProps) {
-  const { id } = params;
+  const { id } = await params;
   const cookieStore = await cookies();
   const token = cookieStore.get("token")?.value;
 
@@ -60,15 +60,10 @@ export default async function ElectionDetailPage({ params }: PageProps) {
   console.log("Filtered:", filteredCandidates);
 
   return (
-    <>
-      {/* Assuming EditDialog doesn't need electionId directly here,
-          but DashboardManagement likely handles opening/managing it */}
-      <EditDialog />
-      <DashboardManagement
-        electionDetails={electionDetail.data}
-        candidates={filteredCandidates}
-        electionId={id} // Pass the election ID here
-      />
-    </>
+    <DashboardManagement
+      electionDetails={electionDetail.data}
+      candidates={filteredCandidates}
+      electionId={id} // Pass the election ID here
+    />
   );
 }

@@ -37,6 +37,8 @@ export default async function VoteAction(formData: FormData): Promise<{
       };
     }
 
+    console.log("Vote response:", voteCandidate);
+
     return {
       error: false,
       message: voteCandidate.message || "Vote submitted successfully!",
