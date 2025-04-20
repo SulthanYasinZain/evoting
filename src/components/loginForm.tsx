@@ -33,7 +33,6 @@ export default function LoginForm() {
         id="email"
         disabled={isLoading}
         className="border border-gray-300 rounded-md p-2 w-full mt-1 mb-4"
-        placeholder="Email@example.com"
         required
       />
       <label htmlFor="password">Password</label>

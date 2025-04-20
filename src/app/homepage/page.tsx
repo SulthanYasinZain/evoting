@@ -2,8 +2,10 @@ import ElectionStatus from "@/components/electionStatus";
 import { cookies } from "next/headers";
 import CandidateCard from "@/components/candidateCard";
 import NoElectionState from "@/components/noelectionState";
+import { Suspense } from "react";
+import LoadingState from "@/components/loadingState";
 
-export default async function page() {
+async function Homepage() {
   const cookieStore = await cookies();
   const token = cookieStore.get("token")?.value;
   console.log(token);
@@ -61,7 +63,7 @@ export default async function page() {
   );
 
   return (
-    <section className="flex flex-col items-center w-full px-4 h-auto min-h-[90svh]">
+    <section className="flex flex-col items-center w-full px-4 h-auto min-h-[89svh]">
       <div className="mt-6 w-full max-w-6xl">
         <ElectionStatus
           hasVoted={hasVoted.has_voted}
@@ -96,5 +98,13 @@ export default async function page() {
         ))}
       </div>
     </section>
+  );
+}
+
+export default function Page() {
+  return (
+    <Suspense fallback={<LoadingState />}>
+      <Homepage />
+    </Suspense>
   );
 }

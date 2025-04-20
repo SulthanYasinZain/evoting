@@ -16,7 +16,7 @@ export default async function Home() {
 
   const activeElection = await activeElectionRes.json();
   return (
-    <section className="flex justify-center items-center w-full px-4 h-auto min-h-[90svh] py-12">
+    <section className="flex justify-center items-center w-full px-4 h-auto min-h-[89svh] py-12">
       <div className="flex flex-col-reverse sm:flex-row justify-center items-center gap-8 w-full max-w-[1200px]">
         {/* Left Side */}
         <div className="w-full sm:w-1/2 space-y-6 text-center sm:text-left">
