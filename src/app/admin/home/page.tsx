@@ -1,17 +1,7 @@
-import { toast } from "sonner";
 import { cookies } from "next/headers";
 import { Suspense } from "react";
-import Link from "next/link";
-import {
-  Calendar,
-  Clock,
-  Pencil,
-  Trash2,
-  User,
-  Users,
-  Vote,
-} from "lucide-react";
-import { Badge } from "@/components/ui/badge";
+import AddElectionDialog from "@/components/addelectionDialog";
+
 import ElectionCard from "@/components/electionCard";
 export default async function Page() {
   const cookieStore = await cookies();
@@ -20,7 +10,6 @@ export default async function Page() {
   const electionRes = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/elections`,
     {
-      next: { revalidate: 5 },
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -39,7 +28,7 @@ export default async function Page() {
       <p className="text-gray-500 text-lg">
         Buat, lihat, dan edit pemilu disini
       </p>
-
+      <AddElectionDialog />
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {electionData.map((election: any) => (
           <ElectionCard

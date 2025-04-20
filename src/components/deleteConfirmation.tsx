@@ -1,6 +1,7 @@
 "use client";
-import { useActionState, useEffect } from "react";
-import Vote from "@/app/action/vote";
+import { useActionState, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import DeleteElection from "@/app/action/deleteElection";
 import { toast } from "sonner";
 import {
   Dialog,
@@ -20,16 +21,25 @@ export default function DeleteConfirmatinDialog({
   election_id: string;
   election_name: string;
 }) {
-  const [state, voteAction, isLoading] = useActionState(Vote, null);
+  const [state, voteAction, isLoading] = useActionState(DeleteElection, null);
+  const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
+
   useEffect(() => {
     if (state?.success === false) {
       toast.error(state.message);
+    } else if (state?.success === true) {
+      router.refresh();
+      setIsOpen(false);
+      setTimeout(() => {
+        toast.success(state.message);
+      }, 1000);
     }
   });
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <button className="border border-red-200 w-full  text-red-500 rounded-lg px-4 py-2 hover:bg-red-100 transition duration-200 flex items-center justify-center">
+        <button className="border cursor-pointer border-red-200 w-full  text-red-500 rounded-lg px-4 py-2 hover:bg-red-100 transition duration-200 flex items-center justify-center">
           <Trash2 className="w-4 h-4 mr-2" />
           Hapus
         </button>

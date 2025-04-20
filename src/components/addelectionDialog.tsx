@@ -1,6 +1,6 @@
 "use client";
 import { useActionState, useEffect, useState } from "react";
-import UpdateElection from "@/app/action/updateElection";
+import AddElection from "@/app/action/addElection";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import {
@@ -11,28 +11,15 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Loader2, Pencil } from "lucide-react";
-import formatToInputDate from "@/lib/formatToInputDate";
+import { Loader2, CirclePlus } from "lucide-react";
 
-export default function EditElectionDialog({
-  election_id,
-  election_name,
-  election_date,
-}: {
-  election_id: string;
-  election_name: string;
-  election_date: string;
-}) {
+export default function AddElectionDialog() {
   const router = useRouter();
-  const [state, updateElectionAction, isLoading] = useActionState(
-    UpdateElection,
+  const [state, addElectionAction, isLoading] = useActionState(
+    AddElection,
     null
   );
   const [isOpen, setIsOpen] = useState(false);
-  const [formData, setFormData] = useState({
-    name: "",
-    date: "",
-  });
 
   useEffect(() => {
     if (state?.success === false) {
@@ -44,46 +31,30 @@ export default function EditElectionDialog({
         toast.success(state.message);
       }, 1000);
     }
-
-    setFormData({
-      name: election_name,
-      date: formatToInputDate(election_date),
-    });
-  }, [election_name, election_date, state]);
-
+  }, [state]);
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <button className="border cursor-pointer text-gray-800 rounded-lg px-4 py-2 w-full hover:bg-neutral-200 transition duration-200 flex items-center justify-center">
-          <Pencil className="w-4 h-4 mr-2" />
-          Edit
+        <button className="border cursor-pointer text-gray-800 rounded-lg px-4 py-2 w-fit hover:bg-neutral-200 transition duration-200 flex items-center justify-center">
+          <CirclePlus className="w-4 h-4 mr-2" />
+          Buat Pemilu
         </button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle className="text-center">Edit Pemilu</DialogTitle>
+          <DialogTitle className="text-center">Buat Pemilu Baru</DialogTitle>
           <DialogDescription className="text-center">
-            Ubah data pemilu sesuai kebutuhan.
+            Masukan Data Pemilu Baru
           </DialogDescription>
         </DialogHeader>
 
-        <form action={updateElectionAction} className="flex flex-col w-full">
-          <input
-            type="hidden"
-            name="election_id"
-            value={election_id}
-            readOnly
-          />
+        <form action={addElectionAction} className="flex flex-col w-full">
           <label htmlFor="title">Title</label>
           <input
             type="text"
             name="title"
             id="title"
             disabled={isLoading}
-            value={formData.name}
-            onChange={(e) => {
-              setFormData({ ...formData, name: e.target.value });
-            }}
             className="border border-gray-300 rounded-md p-2 w-full mt-1 mb-4"
             required
           />
@@ -94,14 +65,12 @@ export default function EditElectionDialog({
             id="Date"
             disabled={isLoading}
             className="border border-gray-300 rounded-md p-2 w-full mt-1 mb-4"
-            value={formData.date}
-            onChange={(e) => setFormData({ ...formData, date: e.target.value })}
             required
           />
           <button
             disabled={isLoading}
             type="submit"
-            className="w-full hover:bg-red-600 disabled:bg-red-400 bg-red-500 text-white rounded-md p-2 h-10"
+            className="w-full px-6 py-2 hover:bg-red-600 disabled:bg-red-400 bg-red-500 text-white rounded-md p-2 h-10"
           >
             {isLoading ? (
               <div className="flex justify-center items-center gap-2">

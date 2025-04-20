@@ -12,7 +12,7 @@ export default function NoElectionState({
   const router = useRouter();
 
   return (
-    <section className="flex flex-col items-center w-full px-4 h-auto min-h-[90svh]">
+    <section className="flex flex-col items-center w-full px-4 h-auto min-h-[89svh]">
       {activeElection && (
         <div className="mt-6 w-full max-w-6xl">
           <ElectionStatus hasVoted={true} />
@@ -22,11 +22,11 @@ export default function NoElectionState({
       <Image
         src="/ilustrasi_noresult.png"
         alt="Tidak Ada Hasil"
-        width={350}
-        height={350}
+        width={300}
+        height={300}
       />
       <div className="flex flex-col items-center justify-center gap-2 text-center">
-        <h1 className="text-4xl font-semibold text-gray-800">
+        <h1 className="text-2xl font-semibold text-gray-800">
           Tidak Ada Pemilu Yang Aktif
         </h1>
         <p className="text-lg text-gray-500">
