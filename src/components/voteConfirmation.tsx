@@ -35,21 +35,18 @@ export default function VoteConfirmationDialog({
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Konfirmasi Pemilihan</DialogTitle>
+          <DialogTitle className="text-center">
+            Konfirmasi Pemilihan
+          </DialogTitle>
           <DialogDescription>
             Apakah Anda yakin ingin memilih{" "}
             <span className="font-semibold text-black">{candidate_name}</span>?
+            <br />
+            Tindakan ini tidak dapat dibatalkan.
           </DialogDescription>
         </DialogHeader>
-        <DialogFooter className="flex gap-4 w-full">
-          <button
-            type="button"
-            disabled={isLoading}
-            className="w-1/2 border text-sm font-medium text-gray-700 hover:bg-neutral-200 text-center flex items-center justify-center h-10 bg-neutral-100 rounded-md"
-          >
-            Batalkan
-          </button>
-          <form action={voteAction} className="w-1/2">
+        <DialogFooter className="w-full">
+          <form action={voteAction} className="flex w-full">
             <input
               className="hidden"
               type="number"

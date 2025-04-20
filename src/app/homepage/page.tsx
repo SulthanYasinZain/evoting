@@ -89,7 +89,7 @@ export default async function page() {
           <CandidateCard
             candidate_id={candidate.id}
             key={candidate.id}
-            title={`Kandidat ${candidate.number}`}
+            number={candidate.number}
             name={candidate.name}
             vision={candidate.vision}
           />
