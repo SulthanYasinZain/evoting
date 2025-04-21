@@ -1,4 +1,4 @@
-import { User, Users, Calendar, Clock, Pencil, Vote } from "lucide-react";
+import { User, Users, Calendar, Clock, Vote } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import DeleteConfirmatinDialog from "./deleteConfirmation";

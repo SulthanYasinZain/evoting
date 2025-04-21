@@ -49,7 +49,7 @@ export default function EditElectionDialog({
       name: election_name,
       date: formatToInputDate(election_date),
     });
-  }, [election_name, election_date, state]);
+  }, [election_name, election_date, state, router]);
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>

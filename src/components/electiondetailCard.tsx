@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Badge } from "@/components/ui/badge";
 import { Vote as VoteIcon } from "lucide-react";
 import { Flag, CheckCircle, Calendar, Users } from "lucide-react";

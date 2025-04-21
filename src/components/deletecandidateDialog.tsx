@@ -36,7 +36,7 @@ export default function DeleteCandidateDialog({
         toast.success(state.message);
       }, 1000);
     }
-  });
+  }, [state, router]);
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>

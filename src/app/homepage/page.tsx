@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import ElectionStatus from "@/components/electionStatus";
 import { cookies } from "next/headers";
 import CandidateCard from "@/components/candidateCard";

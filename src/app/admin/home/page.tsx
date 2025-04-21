@@ -1,8 +1,5 @@
 import { cookies } from "next/headers";
-import { Suspense } from "react";
-import AddElectionDialog from "@/components/addelectionDialog";
 
-import ElectionCard from "@/components/electionCard";
 import AdminHomepage from "@/components/adminHomepage";
 export default async function Page() {
   const cookieStore = await cookies();

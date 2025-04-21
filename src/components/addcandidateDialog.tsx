@@ -37,7 +37,7 @@ export default function AddCandidateDialog({
         toast.success(state.message);
       }, 1000);
     }
-  }, [state]);
+  }, [state, router]);
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>

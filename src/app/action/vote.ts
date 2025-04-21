@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
 import { cookies } from "next/headers";
 
@@ -23,6 +24,5 @@ export default async function Vote(
   if (!voteRes.ok) {
     return { success: false, message: "Gagal melakukan pemilihan" };
   }
-  const vote = await voteRes.json();
   return { success: true, message: "Berhasil melakukan pemilihan" };
 }

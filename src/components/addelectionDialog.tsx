@@ -31,7 +31,7 @@ export default function AddElectionDialog() {
         toast.success(state.message);
       }, 1000);
     }
-  }, [state]);
+  }, [state, router]);
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>

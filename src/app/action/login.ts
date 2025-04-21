@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
 
 import { cookies } from "next/headers";
@@ -37,7 +38,7 @@ export default async function Login(prevstate: any, formData: FormData) {
 
   const cookieStore = await cookies();
   cookieStore.set("token", token, options);
-  //   cookieStore.set("token_type", token_type, options);
+  cookieStore.set("token_type", token_type, options);
 
   redirect("/homepage");
 }

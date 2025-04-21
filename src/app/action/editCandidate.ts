@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
 
 import { cookies } from "next/headers";
@@ -45,12 +46,6 @@ export default async function EditCandidate(
   apiFormData.append("image_url", image); // This must be a File object
 
   console.log("Prepared FormData for API:");
-  for (let [key, value] of apiFormData.entries()) {
-    console.log(
-      `  ${key}:`,
-      value instanceof File ? `File: ${value.name}` : value
-    );
-  }
 
   try {
     console.log(

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export default function formatToInputDate(dateString: string) {
   const parsedDate = new Date(dateString); // this might be `Invalid Date` if the format is not standard
   if (isNaN(parsedDate.getTime())) {
