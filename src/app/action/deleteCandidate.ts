@@ -2,18 +2,16 @@
 "use server";
 import { cookies } from "next/headers";
 
-export default async function DeleteElection(
+export default async function DeleteCandidate(
   prevstate: any,
   formData: FormData
 ) {
   const cookieStore = await cookies();
   const token = cookieStore.get("token")?.value;
-  const electionId = formData.get("election_id") as string;
-
-  console.log("formdata", electionId);
+  const candidatesId = formData.get("election_id") as string;
 
   const deleteElectionRes = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/elections/${electionId}`,
+    `${process.env.NEXT_PUBLIC_API_URL}/elections/${candidatesId}`,
     {
       method: "DELETE",
       headers: {
@@ -22,7 +20,7 @@ export default async function DeleteElection(
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
-        id: electionId,
+        id: candidatesId,
       }),
     }
   );
