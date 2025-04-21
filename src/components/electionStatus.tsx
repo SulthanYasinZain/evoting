@@ -1,5 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import { Clock } from "lucide-react";
+import ElectionCard from "./electionCard";
 
 export default function ElectionStatus({
   title,

@@ -2,10 +2,20 @@
 
 import type React from "react";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-export default function CandidateNumberSelection() {
+export default function CandidateNumberSelection({
+  candidate_number,
+}: {
+  candidate_number?: string;
+}) {
   const [selectedNumber, setSelectedNumber] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (candidate_number) {
+      setSelectedNumber(candidate_number);
+    }
+  }, [candidate_number]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedNumber(event.target.value);
@@ -19,7 +29,7 @@ export default function CandidateNumberSelection() {
           <label key={number} className="relative cursor-pointer w-full">
             <input
               type="radio"
-              name="candidateNumber"
+              name="number"
               value={number}
               className="sr-only"
               onChange={handleChange}

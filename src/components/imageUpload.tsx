@@ -1,8 +1,12 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FileIcon, Upload } from "lucide-react";
 
-export default function ImageUpload() {
+export default function ImageUpload({
+  candidate_image_url,
+}: {
+  candidate_image_url?: string;
+}) {
   const [imageName, setImageName] = useState<string | null>(null);
   const [isHovered, setIsHovered] = useState(false);
 
@@ -12,6 +16,15 @@ export default function ImageUpload() {
     }
   };
 
+  useEffect(() => {
+    if (candidate_image_url) {
+      const filename = candidate_image_url?.split("/").pop();
+      const extractedName =
+        filename?.substring(filename.indexOf("_") + 1) || null;
+
+      setImageName(extractedName);
+    }
+  }, [candidate_image_url]);
   return (
     <div
       className={`relative flex flex-col items-center justify-center w-full h-40 p-6 border-2 border-dashed rounded-lg ${
@@ -27,6 +40,7 @@ export default function ImageUpload() {
       <input
         type="file"
         accept="image/*"
+        name="image_url"
         className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
         id="fileInput"
         onChange={handleChange}

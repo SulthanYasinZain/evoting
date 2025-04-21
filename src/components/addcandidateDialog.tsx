@@ -1,6 +1,6 @@
 "use client";
 import { useActionState, useEffect, useState } from "react";
-import UpdateElection from "@/app/action/updateElection";
+import AddCandidate from "@/app/action/addCandidate";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import ImageUpload from "./imageUpload";
@@ -13,7 +13,6 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Loader2, CirclePlus } from "lucide-react";
-import formatToInputDate from "@/lib/formatToInputDate";
 import CandidateNumberSelection from "./candidatenumberSelection";
 
 export default function AddCandidateDialog({
@@ -22,15 +21,11 @@ export default function AddCandidateDialog({
   election_id: string;
 }) {
   const router = useRouter();
-  const [state, updateElectionAction, isLoading] = useActionState(
-    UpdateElection,
+  const [state, AddCandidateAction, isLoading] = useActionState(
+    AddCandidate,
     null
   );
   const [isOpen, setIsOpen] = useState(false);
-  const [formData, setFormData] = useState({
-    name: "",
-    date: "",
-  });
 
   useEffect(() => {
     if (state?.success === false) {
@@ -63,8 +58,9 @@ export default function AddCandidateDialog({
         {/* Kontainer konten yang scrollable */}
         <div className="overflow-y-auto flex-1 px-1 space-y-4">
           <form
-            action={updateElectionAction}
+            action={AddCandidateAction}
             className="flex flex-col w-full space-y-4"
+            id="addCandidate"
           >
             <input
               type="hidden"
@@ -80,18 +76,14 @@ export default function AddCandidateDialog({
             <CandidateNumberSelection />
 
             <div>
-              <label htmlFor="title" className="block mb-1 font-medium">
+              <label htmlFor="name" className="block mb-1 font-medium">
                 Nama Kandidat
               </label>
               <input
                 type="text"
-                name="title"
-                id="title"
+                name="name"
+                id="name"
                 disabled={isLoading}
-                value={formData.name}
-                onChange={(e) =>
-                  setFormData({ ...formData, name: e.target.value })
-                }
                 className="border border-gray-300 rounded-md p-2 w-full"
                 required
               />
@@ -114,8 +106,8 @@ export default function AddCandidateDialog({
                 Deskripsi
               </label>
               <textarea
-                name="description"
-                id="description"
+                name="mission"
+                id="mission"
                 placeholder="Tulis deskripsi kandidat di sini..."
                 className="border border-gray-300 rounded-md p-2 w-full min-h-[80px]"
               ></textarea>
@@ -123,12 +115,11 @@ export default function AddCandidateDialog({
           </form>
         </div>
 
-        {/* Tombol submit tetap di bawah */}
         <div className="sticky bottom-0 bg-white pt-4">
           <button
             disabled={isLoading}
             type="submit"
-            form="form-id" // optional jika kamu butuh outside submit
+            form="addCandidate"
             className="w-full hover:bg-red-600 disabled:bg-red-400 bg-red-500 text-white rounded-md p-2 h-10"
           >
             {isLoading ? (

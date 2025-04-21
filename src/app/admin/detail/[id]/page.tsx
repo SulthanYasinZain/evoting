@@ -59,36 +59,59 @@ export default async function Page({ params }: { params: { id: string } }) {
         <h2 className="text-gray-800 font-semibold text-2xl mt-8 mb-4">
           Daftar Kandidat
         </h2>
-        <AddCandidateDialog election_id={id} />
+        {filteredCandidates.length > 3 && (
+          <AddCandidateDialog election_id={id} />
+        )}
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 w-full max-w-6xl mt-6">
-        <div className="border rounded-xl p-4 bg-white shadow-md">
-          {filteredCandidates.length > 0 ? (
-            filteredCandidates.map((candidate: any) => (
-              <div key={candidate.id} className="mb-4">
-                <div className="flex flex-col items-center">
-                  <Image
-                    src={
-                      candidate.photo_url || "https://placehold.co/400x200.png"
-                    }
-                    alt={candidate.name}
-                    width={400}
-                    height={200}
-                    className="rounded-lg mb-2"
-                  />
-                  <h3 className="text-lg font-semibold">{candidate.name}</h3>
-                  <p className="text-gray-600">{candidate.vision}</p>
-                  <span className="flex gap-2 w-full">
-                    <EditCandidateDialog election_id="3" election_name="ads" />
-                    <DeleteCandidateDialog candidate_id={candidate.id} />
-                  </span>
-                </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 w-full  mt-6">
+        {filteredCandidates.length > 0 ? (
+          filteredCandidates.map((candidate: any) => (
+            <div
+              key={candidate.id}
+              // Make the card a flex column
+              className="border rounded-xl p-4 bg-white shadow-md flex flex-col"
+            >
+              {/* Wrap content that should grow */}
+              <div className="flex-grow flex flex-col items-center">
+                <Image
+                  src={
+                    candidate.photo_url || "https://placehold.co/400x200.png"
+                  }
+                  alt={candidate.name}
+                  width={400}
+                  height={200}
+                  className="rounded-lg mb-2" // Adjust size constraints if needed
+                  style={{ objectFit: "cover", flexShrink: 0 }} // Prevent image distortion/shrinking
+                />
+                <h3 className="text-lg font-semibold text-center mt-2">
+                  {candidate.name}
+                </h3>
+                <p className="text-gray-600 text-center mb-4">
+                  {candidate.vision}
+                </p>
               </div>
-            ))
-          ) : (
-            <p>Tidak ada kandidat untuk pemilihan ini.</p>
-          )}
-        </div>
+
+              {/* Buttons container - now pushed to the bottom */}
+              <div className="flex justify-center gap-2 w-full mt-auto pt-4 border-t">
+                {" "}
+                {/* mt-auto pushes it down, added padding/border */}
+                <EditCandidateDialog
+                  candidate_id={candidate.id}
+                  candidate_name={candidate.name}
+                  candidate_number={candidate.number}
+                  candidate_vision={candidate.vision}
+                  candidate_mission={candidate.mission}
+                  candidate_image_url={candidate.photo_url}
+                />
+                <DeleteCandidateDialog candidate_id={candidate.id} />
+              </div>
+            </div>
+          ))
+        ) : (
+          <p className="col-span-full text-center">
+            Tidak ada kandidat untuk pemilihan ini.
+          </p>
+        )}
       </div>
     </section>
   );
