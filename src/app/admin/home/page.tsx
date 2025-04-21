@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import AddElectionDialog from "@/components/addelectionDialog";
 
 import ElectionCard from "@/components/electionCard";
+import AdminHomepage from "@/components/adminHomepage";
 export default async function Page() {
   const cookieStore = await cookies();
   const token = cookieStore.get("token")?.value;
@@ -20,29 +21,5 @@ export default async function Page() {
   const rawElectionData = await electionRes.json();
   const electionData = rawElectionData.data;
 
-  return (
-    <section className="flex flex-col  w-full px-4 h-auto min-h-[89svh]">
-      <h1 className="text-gray-800 font-semibold text-2xl">
-        Selamat Datang, Admin!
-      </h1>
-      <p className="text-gray-500 text-lg">
-        Buat, lihat, dan edit pemilu disini
-      </p>
-      <AddElectionDialog />
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {electionData.map((election: any) => (
-          <ElectionCard
-            key={election.id}
-            id={election.id}
-            title={election.title}
-            status={election.status}
-            candidate_count={election.candidate_count}
-            election_date={election.election_date}
-            created_at={election.created_at}
-            voter_count={election.voter_count}
-          />
-        ))}
-      </div>
-    </section>
-  );
+  return <AdminHomepage data={electionData} />;
 }

@@ -1,6 +1,7 @@
 "use client";
-import { useActionState, useEffect } from "react";
-import Vote from "@/app/action/vote";
+import { useActionState, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import DeleteCandidate from "@/app/action/deleteCandidate";
 import { toast } from "sonner";
 import {
   Dialog,
@@ -11,43 +12,45 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Loader2 } from "lucide-react";
+import { Loader2, Trash2 } from "lucide-react";
 
-export default function VoteConfirmationDialog({
+export default function DeleteCandidateDialog({
   candidate_id,
-  candidate_name,
 }: {
-  candidate_id: number;
-  candidate_name: string;
+  candidate_id: string;
 }) {
-  // const voteWithId = Vote.bind(null, candidate_id);
-  const [state, voteAction, isLoading] = useActionState(Vote, null);
+  const [state, DeleteAction, isLoading] = useActionState(
+    DeleteCandidate,
+    null
+  );
+  const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
+
   useEffect(() => {
     if (state?.success === false) {
       toast.error(state.message);
+    } else if (state?.success === true) {
+      router.refresh();
+      setIsOpen(false);
+      setTimeout(() => {
+        toast.success(state.message);
+      }, 1000);
     }
   });
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <button className="w-1/2 hover:bg-red-600 disabled:bg-red-400 bg-red-500 text-white rounded-md p-2 h-10">
-          Pilih
+        <button className="border cursor-pointer border-red-200 w-fit  text-red-500 rounded-lg px-4 py-2 hover:bg-red-100 transition duration-200 flex items-center justify-center">
+          <Trash2 className="w-4 h-4" />
         </button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle className="text-center">
-            Konfirmasi Pemilihan
-          </DialogTitle>
-          <DialogDescription>
-            Apakah Anda yakin ingin memilih{" "}
-            <span className="font-semibold text-black">{candidate_name}</span>?
-            <br />
-            Tindakan ini tidak dapat dibatalkan.
-          </DialogDescription>
+          <DialogTitle className="text-center">Hapus Pemilu</DialogTitle>
+          <DialogDescription>Kamu akan menghapus pemilu </DialogDescription>
         </DialogHeader>
         <DialogFooter className="w-full">
-          <form action={voteAction} className="flex w-full">
+          <form action={DeleteAction} className="flex w-full">
             <input
               className="hidden"
               type="number"
@@ -66,7 +69,7 @@ export default function VoteConfirmationDialog({
                   <Loader2 className="h-4 w-4 animate-spin" />
                 </div>
               ) : (
-                "Ya, Pilih"
+                "Ya, Hapus"
               )}
             </button>
           </form>

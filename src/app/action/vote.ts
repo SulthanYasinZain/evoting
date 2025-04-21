@@ -1,7 +1,11 @@
 "use server";
 import { cookies } from "next/headers";
 
-export default async function Vote(prevstate: any, formData: FormData) {
+export default async function Vote(
+  // candidate_id: number,
+  prevstate: any,
+  formData: FormData
+) {
   const cookieStore = await cookies();
   const token = cookieStore.get("token")?.value;
   const candidateID = formData.get("candidate_id") as string;
