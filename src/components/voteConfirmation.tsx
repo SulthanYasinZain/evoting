@@ -30,7 +30,7 @@ export default function VoteConfirmationDialog({
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <button className="w-1/2 hover:bg-red-600 disabled:bg-red-400 bg-red-500 text-white rounded-md p-2 h-10">
+        <button className="w-1/2 hover:bg-red-600 disabled:bg-red-400 active:bg-red-700 bg-red-500 text-white rounded-md p-2 h-10">
           Pilih
         </button>
       </DialogTrigger>

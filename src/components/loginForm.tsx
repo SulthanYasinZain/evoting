@@ -6,8 +6,18 @@ import { Loader2 } from "lucide-react";
 import Logo from "@/assets/images/logo_upn.png";
 import { toast } from "sonner";
 
+interface LoginResponse {
+  success: boolean;
+  error?: string;
+}
+
+const initialState: LoginResponse = {
+  success: false,
+  error: undefined,
+};
+
 export default function LoginForm() {
-  const [state, loginAction, isLoading] = useActionState(login, null);
+  const [state, loginAction, isLoading] = useActionState(login, initialState);
 
   useEffect(() => {
     if (state?.success === false) {

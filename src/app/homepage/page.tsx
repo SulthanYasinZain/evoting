@@ -6,24 +6,37 @@ import CandidateCard from "@/components/candidateCard";
 import NoElectionState from "@/components/noelectionState";
 import { Suspense } from "react";
 import LoadingState from "@/components/loadingState";
+import ServerErorState from "@/components/servererorState";
 
 async function Homepage() {
   const cookieStore = await cookies();
   const token = cookieStore.get("token")?.value;
-  console.log(token);
-  const activeElectionRes = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/current-election`,
-    {
-      next: { revalidate: 15 },
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    }
-  );
+  let activeElection = null;
 
-  const activeElection = await activeElectionRes.json();
+  try {
+    const activeElectionRes = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/current-election`,
+      {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (!activeElectionRes.ok) {
+      throw new Error(
+        `Failed to fetch active election. Status: ${activeElectionRes.status}`
+      );
+    }
+
+    activeElection = await activeElectionRes.json();
+    console.log(activeElection);
+  } catch (error) {
+    console.error("Error fetching active election:", error);
+    return <ServerErorState />;
+  }
 
   if (activeElection.message === "No active election found") {
     return <NoElectionState activeElection={false} />;
@@ -65,8 +78,8 @@ async function Homepage() {
   );
 
   return (
-    <section className="flex flex-col items-center w-full px-4 h-auto min-h-[89svh]">
-      <div className="mt-6 w-full max-w-6xl">
+    <section className="flex flex-col items-center w-screen  px-4 h-auto min-h-[89svh]">
+      <div className="mt-6 w-full">
         <ElectionStatus
           hasVoted={hasVoted.has_voted}
           title={activeElection.data.name}
@@ -88,7 +101,7 @@ async function Homepage() {
         />
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 w-full max-w-6xl mt-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 w-full  mt-6">
         {candidates.map((candidate: any) => (
           <CandidateCard
             candidate_id={candidate.id}

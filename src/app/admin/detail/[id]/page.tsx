@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { cookies } from "next/headers";
+import { Suspense } from "react";
+import LoadingState from "@/components/loadingState";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import ElectionDetailCard from "@/components/electiondetailCard";
@@ -7,7 +9,7 @@ import AddCandidateDialog from "@/components/addcandidateDialog";
 import Image from "next/image";
 import DeleteCandidateDialog from "@/components/deletecandidateDialog";
 import EditCandidateDialog from "@/components/editcandidateDialog";
-export default async function Page({
+async function AdminDetailPage({
   params,
 }: {
   params: Promise<{ id: string }>;
@@ -48,9 +50,6 @@ export default async function Page({
   const filteredCandidates = candidatesListData.filter(
     (candidate: any) => candidate.election_id === Number(id)
   );
-
-  console.log(electionDetail);
-  console.log("Filtered:", filteredCandidates);
   return (
     <section className="flex flex-col w-full px-4 h-auto min-h-[89svh]">
       <Link
@@ -64,7 +63,7 @@ export default async function Page({
         <h2 className="text-gray-800 font-semibold text-2xl mt-8 mb-4">
           Daftar Kandidat
         </h2>
-        {filteredCandidates.length > 3 && (
+        {filteredCandidates.length < 3 && (
           <AddCandidateDialog election_id={id} />
         )}
       </div>
@@ -119,5 +118,18 @@ export default async function Page({
         )}
       </div>
     </section>
+  );
+}
+
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const resolvedParams = await params;
+  return (
+    <Suspense fallback={<LoadingState />}>
+      <AdminDetailPage params={Promise.resolve(resolvedParams)} />
+    </Suspense>
   );
 }

@@ -12,7 +12,7 @@ export default function NoElectionState({
   const router = useRouter();
 
   return (
-    <section className="flex flex-col items-center w-full px-4 h-auto min-h-[89svh]">
+    <section className="flex flex-col items-center justify-center  w-full px-4 h-auto min-h-[89svh]">
       {activeElection && (
         <div className="mt-6 w-full max-w-6xl">
           <ElectionStatus hasVoted={true} />
@@ -29,7 +29,7 @@ export default function NoElectionState({
         <h1 className="text-2xl font-semibold text-gray-800">
           Tidak Ada Pemilu Yang Aktif
         </h1>
-        <p className="text-lg text-gray-500">
+        <p className="text-sm sm:text-lg text-gray-500">
           Saat ini tidak ada pemilihan yang aktif. Silakan periksa kembali nanti
           atau hubungi administrator untuk informasi lebih lanjut.
         </p>

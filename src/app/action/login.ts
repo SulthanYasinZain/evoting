@@ -4,7 +4,15 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-export default async function Login(prevstate: any, formData: FormData) {
+interface LoginResponse {
+  error?: string;
+  success: boolean;
+}
+
+export default async function Login(
+  prevState: LoginResponse,
+  formData: FormData
+): Promise<LoginResponse> {
   const email = formData.get("email");
   const password = formData.get("password");
 
@@ -15,30 +23,45 @@ export default async function Login(prevstate: any, formData: FormData) {
     };
   }
 
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/login`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email, password }),
-  });
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/login`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
+    });
 
-  if (!response.ok) {
+    if (!response.ok) {
+      return {
+        error: "Invalid email or password",
+        success: false,
+      };
+    }
+
+    const data = await response.json();
+
+    if (!data.token || !data.token_type) {
+      return {
+        error: "Invalid server response",
+        success: false,
+      };
+    }
+
+    const cookieStore = await cookies();
+    const options = {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      path: "/",
+      maxAge: 60 * 60 * 24,
+    };
+
+    cookieStore.set("token", data.token, options);
+    cookieStore.set("token_type", data.token_type, options);
+  } catch (error: any) {
+    console.error("Login error:", error);
     return {
-      error: "Invalid email or password",
+      error: "An error occurred during login. Please try again later.",
       success: false,
     };
   }
-
-  const { token, token_type } = await response.json();
-  const options = {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    path: "/",
-    maxAge: 60 * 60 * 24,
-  };
-
-  const cookieStore = await cookies();
-  cookieStore.set("token", token, options);
-  cookieStore.set("token_type", token_type, options);
-
   redirect("/homepage");
 }

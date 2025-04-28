@@ -12,7 +12,7 @@ export default async function Navbar() {
   return (
     <header className="w-full border-b border-neutral-400 bg-white">
       <div className="flex h-16 items-center justify-between px-6">
-        <Link href={"/home"} className="flex items-center gap-3">
+        <Link href={"/homepage"} className="flex items-center gap-3">
           <Image
             src={Logo}
             alt="UPNVJ Logo"
@@ -32,7 +32,7 @@ export default async function Navbar() {
             className="flex gap-2 p-2 rounded text-sm font-medium text-gray-700 hover:bg-neutral-200"
           >
             <HelpCircle className="h-5 w-5" />
-            <span>Bantuan</span>
+            <span className="hidden sm:block">Bantuan</span>
           </Link>
         </div>
       </div>

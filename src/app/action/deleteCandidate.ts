@@ -10,25 +10,30 @@ export default async function DeleteCandidate(
   const token = cookieStore.get("token")?.value;
   const candidatesId = formData.get("election_id") as string;
 
-  const deleteElectionRes = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/elections/${candidatesId}`,
-    {
-      method: "DELETE",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({
-        id: candidatesId,
-      }),
+  try {
+    const deleteElectionRes = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/elections/${candidatesId}`,
+      {
+        method: "DELETE",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          id: candidatesId,
+        }),
+      }
+    );
+    const res = await deleteElectionRes.json();
+    console.log("res", res);
+    if (!deleteElectionRes.ok) {
+      return { success: false, message: "GaGal Menhapus" };
     }
-  );
-  const res = await deleteElectionRes.json();
-  console.log("res", res);
-  if (!deleteElectionRes.ok) {
-    return { success: false, message: "GaGal Menhapus" };
-  }
 
-  return { success: true, message: "Berhasil melakukan Penhapusan" };
+    return { success: true, message: "Berhasil melakukan Penhapusan" };
+  } catch (error) {
+    console.log("error", error);
+    return { success: false, message: "Server Error. Coba Lagi Nanti" };
+  }
 }

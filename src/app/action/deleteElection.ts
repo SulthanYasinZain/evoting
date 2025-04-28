@@ -12,25 +12,30 @@ export default async function DeleteElection(
 
   console.log("formdata", electionId);
 
-  const deleteElectionRes = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/elections/${electionId}`,
-    {
-      method: "DELETE",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({
-        id: electionId,
-      }),
+  try {
+    const deleteElectionRes = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/elections/${electionId}`,
+      {
+        method: "DELETE",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          id: electionId,
+        }),
+      }
+    );
+    const res = await deleteElectionRes.json();
+    console.log("res", res);
+    if (!deleteElectionRes.ok) {
+      return { success: false, message: "GaGal Menhapus" };
     }
-  );
-  const res = await deleteElectionRes.json();
-  console.log("res", res);
-  if (!deleteElectionRes.ok) {
-    return { success: false, message: "GaGal Menhapus" };
-  }
 
-  return { success: true, message: "Berhasil melakukan Penhapusan" };
+    return { success: true, message: "Berhasil melakukan Penhapusan" };
+  } catch (error) {
+    console.log("error", error);
+    return { success: false, message: "Server Error. Coba Lagi Nanti" };
+  }
 }
