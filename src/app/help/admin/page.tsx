@@ -33,34 +33,9 @@ export default function Page() {
 
   const faqData = [
     {
-      question: "Apa itu Sistem Pemilu Fakultas Hukum?",
-      answer:
-        "Sistem Pemilu Fakultas Hukum adalah platform digital yang digunakan untuk pelaksanaan pemilihan umum di lingkungan Fakultas Hukum UPNVJ.",
-    },
-    {
-      question: "Siapa saja yang dapat menggunakan sistem ini?",
-      answer:
-        "Sistem ini hanya dapat digunakan oleh mahasiswa aktif Fakultas Hukum UPNVJ yang memiliki akun Siakad resmi.",
-    },
-    {
-      question: "Mengapa saya tidak bisa login?",
-      answer:
-        "Pastikan Anda adalah mahasiswa aktif Fakultas Hukum UPNVJ dan menggunakan kredensial akun Siakad yang benar.",
-    },
-    {
-      question: "Mengapa tidak ada pemilu yang aktif?",
-      answer:
-        "Kemungkinan Anda telah menggunakan hak suara atau belum ada pemilu yang sedang berlangsung. Informasi terkait jadwal pemilu akan diumumkan melalui media sosial resmi Fakultas Hukum UPNVJ.",
-    },
-    {
-      question: "Apakah sistem pemilu ini bersifat rahasia?",
-      answer:
-        "Ya, sistem ini dirancang untuk menjaga kerahasiaan suara. Tidak ada pihak yang dapat mengetahui siapa yang Anda pilih.",
-    },
-    {
-      question: "Apakah saya bisa mengubah suara saya setelah voting?",
-      answer:
-        "Tidak, setelah Anda mengirimkan suara, pilihan tersebut bersifat final dan tidak dapat diubah. Pastikan Anda sudah yakin sebelum melakukan voting.",
+      question:
+        "Apakah Bisa Menjalankan lebih dari 1 pemilu dalam 1 hari yang sama?",
+      answer: "tidak bisa",
     },
   ];
 
@@ -86,9 +61,9 @@ export default function Page() {
             <input
               type="radio"
               name="tab"
-              value="Panduan Pengguna"
-              checked={tab === "Panduan Pengguna"}
-              onChange={() => setTab("Panduan Pengguna")}
+              value="Panduan Admin"
+              checked={tab === "Panduan Admin"}
+              onChange={() => setTab("Panduan Admin")}
               className="hidden"
             />
             Panduan Pengguna
@@ -114,7 +89,7 @@ export default function Page() {
         </div>
 
         <div className=" flex flex-col gap-2 sm:gap-8 text-gray-700 p-2 sm:p-8">
-          {tab === "Panduan Pengguna" &&
+          {tab === "Panduan Admin" &&
             panduanPenggunaData.map((item) => (
               <HelpContent
                 key={item.title}

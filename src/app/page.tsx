@@ -70,6 +70,8 @@ export default async function Home() {
             width={500}
             height={500}
             className="hidden sm:block max-w-full h-auto"
+            placeholder="blur"
+            blurDataURL="@/assets/images/hero-card-low-res.jpg"
           />
           <Image
             src={HeroImage}
@@ -77,6 +79,8 @@ export default async function Home() {
             width={250}
             height={250}
             className="sm:hidden"
+            placeholder="blur"
+            blurDataURL="@/assets/images/hero-card-low-res.jpg"
           />
         </div>
       </div>

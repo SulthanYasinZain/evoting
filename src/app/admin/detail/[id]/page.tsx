@@ -9,6 +9,7 @@ import AddCandidateDialog from "@/components/addcandidateDialog";
 import Image from "next/image";
 import DeleteCandidateDialog from "@/components/deletecandidateDialog";
 import EditCandidateDialog from "@/components/editcandidateDialog";
+import { BarChartHorizontal } from "@/components/barChart";
 async function AdminDetailPage({
   params,
 }: {
@@ -72,10 +73,8 @@ async function AdminDetailPage({
           filteredCandidates.map((candidate: any) => (
             <div
               key={candidate.id}
-              // Make the card a flex column
               className="border rounded-xl p-4 bg-white shadow-md flex flex-col"
             >
-              {/* Wrap content that should grow */}
               <div className="flex-grow flex flex-col items-center">
                 <Image
                   src={
@@ -84,8 +83,8 @@ async function AdminDetailPage({
                   alt={candidate.name}
                   width={400}
                   height={200}
-                  className="rounded-lg mb-2" // Adjust size constraints if needed
-                  style={{ objectFit: "cover", flexShrink: 0 }} // Prevent image distortion/shrinking
+                  className="rounded-lg mb-2"
+                  style={{ objectFit: "cover", flexShrink: 0 }}
                 />
                 <h3 className="text-lg font-semibold text-center mt-2">
                   {candidate.name}
@@ -95,10 +94,7 @@ async function AdminDetailPage({
                 </p>
               </div>
 
-              {/* Buttons container - now pushed to the bottom */}
               <div className="flex justify-center gap-2 w-full mt-auto pt-4 border-t">
-                {" "}
-                {/* mt-auto pushes it down, added padding/border */}
                 <EditCandidateDialog
                   candidate_id={candidate.id}
                   candidate_name={candidate.name}
@@ -117,6 +113,9 @@ async function AdminDetailPage({
           </p>
         )}
       </div>
+
+      <h2>Detail Grafik</h2>
+      <BarChartHorizontal />
     </section>
   );
 }
