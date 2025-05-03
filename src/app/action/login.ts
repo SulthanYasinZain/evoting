@@ -10,7 +10,7 @@ interface LoginResponse {
 }
 
 export default async function Login(
-  prevState: LoginResponse,
+  prevState: any,
   formData: FormData
 ): Promise<LoginResponse> {
   const email = formData.get("email");

@@ -12,7 +12,7 @@ export default async function Navbar() {
   return (
     <header className="w-full border-b border-neutral-400 bg-white">
       <div className="flex h-16 items-center justify-between px-6">
-        <Link href={"/homepage"} className="flex items-center gap-3">
+        <Link href={"/"} className="flex items-center gap-3">
           <Image
             src={Logo}
             alt="UPNVJ Logo"

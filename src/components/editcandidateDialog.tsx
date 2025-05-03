@@ -71,6 +71,7 @@ export default function EditCandidateDialog({
     router,
   ]);
 
+  console.log(candidate_image_url);
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>

@@ -48,7 +48,7 @@ export default async function Home() {
                 </Badge>
               )}
           <h1 className="text-gray-800 text-3xl sm:text-5xl font-semibold">
-            Website Pemilu Fakultas Hukum UPNVJ
+            Pemilihan Raya Fakultas Hukum 2025
           </h1>
           <p className="text-gray-600 text-base sm:text-xl">
             Ayo sukseskan pemilu yang jujur, adil, dan rahasia, di mana setiap
@@ -62,25 +62,12 @@ export default async function Home() {
           </Link>
         </div>
 
-        {/* Right Side */}
-        <div className="w-full sm:w-1/2 flex justify-center items-center">
+        <div className="relative w-full sm:w-1/2 h-[300px] sm:h-[500px]">
           <Image
             src={HeroImage}
             alt="Logo UPN"
-            width={500}
-            height={500}
-            className="hidden sm:block max-w-full h-auto"
-            placeholder="blur"
-            blurDataURL="@/assets/images/hero-card-low-res.jpg"
-          />
-          <Image
-            src={HeroImage}
-            alt="Logo UPN"
-            width={250}
-            height={250}
-            className="sm:hidden"
-            placeholder="blur"
-            blurDataURL="@/assets/images/hero-card-low-res.jpg"
+            fill
+            className="object-contain"
           />
         </div>
       </div>

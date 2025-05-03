@@ -4,38 +4,59 @@ import { useState } from "react";
 import { Accordion } from "@/components/ui/accordion";
 
 export default function Page() {
-  const [tab, setTab] = useState<string>("Panduan Pengguna");
+  const [tab, setTab] = useState<string>("Panduan Admin");
 
-  const panduanPenggunaData = [
+  const panduanAdminData = [
     {
-      title: "Masuk ke Sistem Pemilu",
+      title: "Akses ke Dasbor Administrator",
       video: "https://www.youtube.com/watch?v=example",
       description:
-        "Gunakan NIM dan password yang sama dengan akun Siakad Anda untuk login ke dalam sistem.",
+        "Untuk mengakses dasbor administrator, silakan buka halaman log masuk dan masukkan kredensial administrator Anda. Pastikan Anda menggunakan akun yang terdaftar dengan peran administrator. Selanjutnya, ketikkan '/admin/home' untuk menuju halaman administrator.",
       alert:
-        "Pastikan kredensial Anda benar. Sistem hanya menerima akun Siakad & Mahasiswa Aktif.",
+        "Dasbor Administrator hanya dapat diakses oleh pengguna dengan otorisasi administrator. Apabila Anda tidak memiliki akses, mohon hubungi administrator sistem.",
     },
     {
-      title: "Melihat Profil Kandidat",
+      title: "Penambahan Pemilihan Umum Baru",
       video: "https://www.youtube.com/watch?v=example",
       description:
-        "Klik tombol 'Detail' pada masing-masing kandidat untuk melihat informasi lengkap, termasuk visi, misi, dan latar belakang. Gunakan tombol 'Selesai' untuk kembali ke halaman utama.",
+        "Klik tombol 'Tambah Pemilu' pada dasbor administrator untuk membuat entri pemilihan umum yang baru. Isi seluruh informasi yang diperlukan, termasuk nama dan waktu pelaksanaan pemilihan.",
     },
     {
-      title: "Memberikan Suara",
+      title: "Penambahan Kandidat",
       video: "https://www.youtube.com/watch?v=example",
       description:
-        "Setelah Anda yakin dengan pilihan kandidat, klik tombol 'Pilih' untuk mengirimkan suara Anda.",
+        "Setelah berhasil membuat entri pemilihan umum, Anda dapat menambahkan kandidat melalui tombol 'Detail' yang akan mengarahkan Anda ke halaman detail pemilihan. Pada halaman ini, Anda dapat menambahkan kandidat dengan mengisi nama lengkap, visi, dan nomor urut kandidat.",
       alert:
-        "Harap periksa kembali sebelum memilih. Suara yang telah dikirim tidak dapat diubah.",
+        "Penambahan kandidat hanya dapat dilakukan setelah entri pemilihan umum dibuat. Pastikan seluruh informasi kandidat akurat sebelum melakukan penyimpanan. Batas maksimum kandidat per pemilihan umum adalah 3.",
+    },
+    {
+      title: "Pengubahan Data Kandidat",
+      video: "https://www.youtube.com/watch?v=example",
+      description:
+        "Apabila Anda perlu melakukan perubahan informasi kandidat, silakan klik tombol 'Edit'. Anda dapat memperbarui nama lengkap, visi, dan nomor urut kandidat.",
     },
   ];
 
   const faqData = [
     {
       question:
-        "Apakah Bisa Menjalankan lebih dari 1 pemilu dalam 1 hari yang sama?",
-      answer: "tidak bisa",
+        "Apakah dimungkinkan untuk menjalankan lebih dari satu pemilihan umum pada hari yang sama?",
+      answer: "Tidak dimungkinkan.",
+    },
+    {
+      question: "Mengapa saya tidak dapat mengakses halaman administrator?",
+      answer:
+        "Akses ke halaman administrator terbatas hanya untuk akun dengan otorisasi administrator. Apabila Anda tidak memiliki akses, mohon hubungi administrator sistem.",
+    },
+    {
+      question: "Mengapa saya tidak dapat menghapus entri pemilihan umum?",
+      answer:
+        "Untuk menghapus entri pemilihan umum, Anda diwajibkan untuk menghapus seluruh data kandidat yang terdaftar terlebih dahulu. Setelah proses penghapusan kandidat selesai, Anda baru dapat menghapus entri pemilihan umum tersebut.",
+    },
+    {
+      question:
+        "Apakah dimungkinkan untuk menghapus entri pemilihan umum atau data kandidat yang sedang berlangsung?",
+      answer: "Tidak dimungkinkan.",
     },
   ];
 
@@ -53,7 +74,7 @@ export default function Page() {
         <div className="flex justify-evenly w-full">
           <label
             className={`cursor-pointer p-4 border-b w-full text-center ${
-              tab === "Panduan Pengguna"
+              tab === "Panduan Admin"
                 ? "border-red-500 text-red-500 font-semibold"
                 : " border-gray-500 text-gray-500"
             }`}
@@ -90,7 +111,7 @@ export default function Page() {
 
         <div className=" flex flex-col gap-2 sm:gap-8 text-gray-700 p-2 sm:p-8">
           {tab === "Panduan Admin" &&
-            panduanPenggunaData.map((item) => (
+            panduanAdminData.map((item) => (
               <HelpContent
                 key={item.title}
                 title={item.title}

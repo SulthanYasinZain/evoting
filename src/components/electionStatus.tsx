@@ -5,16 +5,18 @@ export default function ElectionStatus({
   title,
   time,
   hasVoted = false,
+  alowed = true,
 }: {
   title?: string;
   time?: string;
   hasVoted?: boolean;
+  alowed?: boolean;
 }) {
   const timeLeft = time || "0 Jam 0 Menit";
   const electionTitle = title || "Pemilihan Umum Mahasiswa";
   return (
     <div className="w-full space-y-4">
-      {hasVoted ? (
+      {hasVoted && alowed ? (
         <div className="p-4 bg-green-50 border border-green-100 rounded-lg">
           <p className="text-green-800 font-medium">
             Terimakasih atas partisipasi anda dalam pemilihan ini. Suara anda

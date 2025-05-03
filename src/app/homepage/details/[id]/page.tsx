@@ -46,7 +46,10 @@ async function AdminDetailPage({
         {/* Candidate header card with consistent padding */}
         <div className="flex flex-col sm:flex-row w-full items-center bg-gradient-to-r from-red-600 to-red-800 text-white p-6 rounded-lg mt-6 gap-6">
           <Image
-            src={"https://placehold.co/800x400.png"}
+            src={
+              candidateDetail.data.image_url ||
+              "https://placehold.co/800x400.png"
+            }
             alt="Candidate Image"
             width={800}
             height={400}

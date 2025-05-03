@@ -6,18 +6,8 @@ import { Loader2 } from "lucide-react";
 import Logo from "@/assets/images/logo_upn.png";
 import { toast } from "sonner";
 
-interface LoginResponse {
-  success: boolean;
-  error?: string;
-}
-
-const initialState: LoginResponse = {
-  success: false,
-  error: undefined,
-};
-
 export default function LoginForm() {
-  const [state, loginAction, isLoading] = useActionState(login, initialState);
+  const [state, loginAction, isLoading] = useActionState(login, null);
 
   useEffect(() => {
     if (state?.success === false) {
@@ -27,7 +17,7 @@ export default function LoginForm() {
   return (
     <form
       action={loginAction}
-      className="w-[350px] sm:w-[400px] p-4 border border-neutral-200 rounded-xl"
+      className="w-[350px] sm:w-[400px] p-4 border border-neutral-200 rounded-xl mx-4"
     >
       <div className="flex flex-col justify-center items-center gap-2 text-center ">
         <Image src={Logo} alt="Logo UPN" width={50} height={50} className="" />

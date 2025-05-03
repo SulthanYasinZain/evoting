@@ -18,8 +18,9 @@ function HelpContent({
   return (
     <div className="flex flex-col sm:flex-row border border-gray-200 rounded-lg shadow-sm overflow-hidden">
       <div className="relative w-full sm:w-1/2 aspect-[2/1]">
+        <p className="hidden">{video}</p>
         <Image
-          src={video || "https://placehold.co/800x400.png"}
+          src={"https://placehold.co/800x400.png"}
           alt=""
           fill
           className="object-cover"

@@ -9,7 +9,8 @@ import AddCandidateDialog from "@/components/addcandidateDialog";
 import Image from "next/image";
 import DeleteCandidateDialog from "@/components/deletecandidateDialog";
 import EditCandidateDialog from "@/components/editcandidateDialog";
-import { BarChartHorizontal } from "@/components/barChart";
+import { BarChartVertical } from "@/components/barChart";
+import { LineChartMultiple } from "@/components/lineChart";
 async function AdminDetailPage({
   params,
 }: {
@@ -51,6 +52,7 @@ async function AdminDetailPage({
   const filteredCandidates = candidatesListData.filter(
     (candidate: any) => candidate.election_id === Number(id)
   );
+  console.log("filteredData", filteredCandidates);
   return (
     <section className="flex flex-col w-full px-4 h-auto min-h-[89svh]">
       <Link
@@ -86,10 +88,10 @@ async function AdminDetailPage({
                   className="rounded-lg mb-2"
                   style={{ objectFit: "cover", flexShrink: 0 }}
                 />
-                <h3 className="text-lg font-semibold text-center mt-2">
+                <h3 className="text-lg font-semibold text-center mt-2 line-clamp-1">
                   {candidate.name}
                 </h3>
-                <p className="text-gray-600 text-center mb-4">
+                <p className="text-gray-600 text-center mb-4 line-clamp-2">
                   {candidate.vision}
                 </p>
               </div>
@@ -101,7 +103,7 @@ async function AdminDetailPage({
                   candidate_number={candidate.number}
                   candidate_vision={candidate.vision}
                   candidate_mission={candidate.mission}
-                  candidate_image_url={candidate.photo_url}
+                  candidate_image_url={candidate.image_url}
                 />
                 <DeleteCandidateDialog candidate_id={candidate.id} />
               </div>
@@ -115,7 +117,10 @@ async function AdminDetailPage({
       </div>
 
       <h2>Detail Grafik</h2>
-      <BarChartHorizontal />
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full mt-6">
+        <BarChartVertical />
+      </div>
+      <LineChartMultiple />
     </section>
   );
 }

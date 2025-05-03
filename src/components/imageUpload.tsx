@@ -1,4 +1,5 @@
 "use client";
+
 import { useState, useEffect } from "react";
 import { FileIcon, Upload } from "lucide-react";
 
@@ -18,22 +19,24 @@ export default function ImageUpload({
 
   useEffect(() => {
     if (candidate_image_url) {
-      const filename = candidate_image_url?.split("/").pop();
+      const filename = candidate_image_url.split("/").pop();
       const extractedName =
-        filename?.substring(filename.indexOf("_") + 1) || null;
+        filename?.substring(filename.indexOf("_") + 1) || filename || null;
 
       setImageName(extractedName);
     }
   }, [candidate_image_url]);
+
+  // Determine dynamic styling based on state
+  const borderColor = imageName
+    ? "border-emerald-500 bg-emerald-50"
+    : isHovered
+    ? "border-gray-600 bg-gray-50"
+    : "border-gray-300 bg-gray-50";
+
   return (
     <div
-      className={`relative flex flex-col items-center justify-center w-full h-40 p-6 border-2 border-dashed rounded-lg ${
-        imageName
-          ? "border-emerald-500 bg-emerald-50"
-          : isHovered
-          ? "border-gray-600 bg-gray-50"
-          : "border-gray-300 bg-gray-50"
-      } transition-all duration-300 ease-in-out`}
+      className={`relative flex flex-col items-center justify-center w-full h-40 p-6 border-2 border-dashed rounded-lg ${borderColor} transition-all duration-300 ease-in-out`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -48,7 +51,7 @@ export default function ImageUpload({
 
       <label
         htmlFor="fileInput"
-        className="flex flex-col justify-center items-center w-full h-full text-center"
+        className="flex flex-col justify-center items-center w-full h-full text-center pointer-events-none"
       >
         {imageName ? (
           <>

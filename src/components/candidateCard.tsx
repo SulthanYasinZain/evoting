@@ -27,7 +27,9 @@ export default function CandidateCard({
       </div>
       <div className="border-b border-neutral-200 py-2">
         <p className="text-gray-500 text-sm">Kandidat {number}</p>
-        <h1 className="text-2xl text-gray-800 font-semibold">{name}</h1>
+        <h1 className="text-2xl text-gray-800 font-semibold text-clamp-1 max-w-full">
+          {name}
+        </h1>
       </div>
       <p className="text-md text-gray-600">{vision}</p>
       <div className="w-full flex gap-2 mt-4">

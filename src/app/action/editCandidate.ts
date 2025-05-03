@@ -43,9 +43,12 @@ export default async function EditCandidate(
   apiFormData.append("name", name);
   apiFormData.append("vision", vision);
   apiFormData.append("mission", mission);
-  apiFormData.append("image_url", image); // This must be a File object
 
-  console.log("Prepared FormData for API:");
+  if (image instanceof File && image.size > 0 && image.name !== "undefined") {
+    formData.append("image_url", image);
+  }
+
+  console.log("Prepared FormData for API:", apiFormData);
 
   try {
     console.log(
@@ -58,7 +61,6 @@ export default async function EditCandidate(
         headers: {
           Authorization: `Bearer ${token}`,
           Accept: "application/json",
-          // DON'T set Content-Type manually when using FormData
         },
         body: apiFormData,
       }

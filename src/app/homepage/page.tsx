@@ -7,6 +7,7 @@ import NoElectionState from "@/components/noelectionState";
 import { Suspense } from "react";
 import LoadingState from "@/components/loadingState";
 import ServerErorState from "@/components/servererorState";
+import { redirect } from "next/navigation";
 
 async function Homepage() {
   const cookieStore = await cookies();
@@ -14,67 +15,63 @@ async function Homepage() {
   let activeElection = null;
 
   try {
-    const activeElectionRes = await fetch(
+    const res = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/current-election`,
       {
         method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
+        headers: { Accept: "application/json" },
+        cache: "no-store",
       }
     );
 
-    if (!activeElectionRes.ok) {
-      throw new Error(
-        `Failed to fetch active election. Status: ${activeElectionRes.status}`
-      );
-    }
+    if (!res.ok) throw new Error(`Status: ${res.status}`);
 
-    activeElection = await activeElectionRes.json();
-    console.log(activeElection);
-  } catch (error) {
-    console.error("Error fetching active election:", error);
+    activeElection = await res.json();
+  } catch (err) {
+    console.error("Election error", err);
     return <ServerErorState />;
   }
 
-  if (activeElection.message === "No active election found") {
+  if (activeElection?.message === "No active election found") {
     return <NoElectionState activeElection={false} />;
   }
 
-  const hasVotedRes = await fetch(
+  const voteRes = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/votes/check/${activeElection.data.id}`,
     {
-      next: { revalidate: 15 },
-      method: "GET",
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
+        Accept: "application/json",
       },
+      cache: "no-store",
     }
   );
 
-  const hasVoted = await hasVotedRes.json();
+  const hasVoted = await voteRes.json();
 
   if (hasVoted.message === "User does not have the right roles.") {
     return <NoElectionState activeElection={true} />;
   }
-  const candidatesRes = await fetch(
+
+  const candidateRes = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/candidates`,
     {
-      next: { revalidate: 15 },
-      method: "GET",
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
+        Accept: "application/json",
       },
+      cache: "no-store",
     }
   );
-  const rawCandidates = await candidatesRes.json();
+
+  if (!candidateRes.ok) {
+    redirect("/api/logout");
+  }
+
+  const rawCandidates = await candidateRes.json();
+
   const candidates = rawCandidates.data.filter(
-    (candidate: any) => candidate.election_id === activeElection.data.id
+    (c: any) => c.election_id === activeElection.data.id
   );
 
   return (

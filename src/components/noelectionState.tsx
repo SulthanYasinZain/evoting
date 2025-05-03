@@ -12,7 +12,7 @@ export default function NoElectionState({
   const router = useRouter();
 
   return (
-    <section className="flex flex-col items-center justify-center  w-full px-4 h-auto min-h-[89svh]">
+    <section className="flex flex-col items-center   w-full px-4 h-auto min-h-[89svh]">
       {activeElection && (
         <div className="mt-6 w-full max-w-6xl">
           <ElectionStatus hasVoted={true} />

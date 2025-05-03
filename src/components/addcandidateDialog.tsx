@@ -49,13 +49,14 @@ export default function AddCandidateDialog({
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px] max-h-[90vh] flex flex-col">
         <DialogHeader>
-          <DialogTitle className="text-center">Edit Pemilu</DialogTitle>
+          <DialogTitle className="text-center">
+            Tambah Kandidat Baru
+          </DialogTitle>
           <DialogDescription className="text-center">
-            Ubah data pemilu sesuai kebutuhan.
+            Masukan data kandidat untuk pemilihan ini.
           </DialogDescription>
         </DialogHeader>
 
-        {/* Kontainer konten yang scrollable */}
         <div className="overflow-y-auto flex-1 px-1 space-y-4">
           <form
             action={AddCandidateAction}
