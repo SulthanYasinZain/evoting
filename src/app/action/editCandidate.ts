@@ -20,24 +20,6 @@ export default async function EditCandidate(
   const mission = formData.get("mission") as string;
   const image = formData.get("image_url");
 
-  console.log("Form Data Received:");
-  console.log("  election_id:", candidateId);
-  console.log("  number:", number);
-  console.log("  name:", name);
-  console.log("  vision:", vision);
-  console.log("  mission:", mission);
-  console.log(
-    "  image:",
-    image instanceof File
-      ? `File: ${image.name}, Size: ${image.size}`
-      : "Not a file or missing"
-  );
-
-  if (!image || !(image instanceof File)) {
-    console.error("Image validation failed");
-    return { success: false, message: "Image file is required" };
-  }
-
   const apiFormData = new FormData();
   apiFormData.append("number", number);
   apiFormData.append("name", name);
@@ -45,7 +27,10 @@ export default async function EditCandidate(
   apiFormData.append("mission", mission);
 
   if (image instanceof File && image.size > 0 && image.name !== "undefined") {
-    formData.append("image_url", image);
+    console.log("Image file detected:", image.name);
+    apiFormData.append("image_url", image);
+
+    console.log("Appending image to FormData..");
   }
 
   console.log("Prepared FormData for API:", apiFormData);
@@ -85,7 +70,7 @@ export default async function EditCandidate(
       };
     }
 
-    console.log("Candidate added successfully");
+    console.log("Candidate Edited successfully");
     return { success: true, message: "Candidate added successfully" };
   } catch (error) {
     console.error("Fetch Error:", error);

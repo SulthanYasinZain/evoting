@@ -24,8 +24,6 @@ async function Homepage() {
       }
     );
 
-    if (!res.ok) throw new Error(`Status: ${res.status}`);
-
     activeElection = await res.json();
   } catch (err) {
     console.error("Election error", err);
@@ -102,6 +100,7 @@ async function Homepage() {
         {candidates.map((candidate: any) => (
           <CandidateCard
             candidate_id={candidate.id}
+            image_url={candidate.image_url}
             key={candidate.id}
             number={candidate.number}
             name={candidate.name}

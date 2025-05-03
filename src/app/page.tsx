@@ -2,7 +2,11 @@ import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import HeroImage from "@/assets/images/hero_card.png";
+import { cookies } from "next/headers";
+
 export default async function Home() {
+  const cookieStore = await cookies();
+  const token = cookieStore.get("token")?.value;
   let activeElection = null;
 
   try {
@@ -54,20 +58,31 @@ export default async function Home() {
             Ayo sukseskan pemilu yang jujur, adil, dan rahasia, di mana setiap
             suara berharga untuk masa depan yang lebih baik!
           </p>
-          <Link
-            href="/login"
-            className="inline-block bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded"
-          >
-            Login
-          </Link>
+          {token ? (
+            <Link
+              href="/homepage"
+              className="inline-block bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded"
+            >
+              Voting Sekarang
+            </Link>
+          ) : (
+            <Link
+              href="/login"
+              className="inline-block bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded"
+            >
+              Login
+            </Link>
+          )}
         </div>
 
-        <div className="relative w-full sm:w-1/2 h-[300px] sm:h-[500px]">
+        <div className="relative w-full sm:w-1/2 h-[300px] sm:h-[400px]">
           <Image
             src={HeroImage}
             alt="Logo UPN"
             fill
             className="object-contain"
+            priority
+            loading="eager"
           />
         </div>
       </div>

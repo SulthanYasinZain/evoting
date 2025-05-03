@@ -80,7 +80,7 @@ export default function EditCandidateDialog({
           Edit
         </button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] max-h-[90vh] flex flex-col">
+      <DialogContent className="sm:max-w-[425px] max-h-[80svh] flex flex-col">
         <DialogHeader>
           <DialogTitle className="text-center">Edit Pemilu</DialogTitle>
           <DialogDescription className="text-center">
@@ -89,7 +89,7 @@ export default function EditCandidateDialog({
         </DialogHeader>
 
         {/* Kontainer konten yang scrollable */}
-        <div className="overflow-y-auto flex-1 px-1 space-y-4">
+        <div className="overflow-y-auto flex-1 px-1 space-y-4 py-2">
           <form
             action={EditCandidateAction}
             className="flex flex-col w-full space-y-4"

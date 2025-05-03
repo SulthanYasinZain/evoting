@@ -9,8 +9,9 @@ import AddCandidateDialog from "@/components/addcandidateDialog";
 import Image from "next/image";
 import DeleteCandidateDialog from "@/components/deletecandidateDialog";
 import EditCandidateDialog from "@/components/editcandidateDialog";
-import { BarChartVertical } from "@/components/barChart";
-import { LineChartMultiple } from "@/components/lineChart";
+// import { BarChartVertical } from "@/components/barChart";
+// import { LineChartMultiple } from "@/components/lineChart";
+import { redirect } from "next/navigation";
 async function AdminDetailPage({
   params,
 }: {
@@ -31,7 +32,13 @@ async function AdminDetailPage({
     }
   );
   const electionDetail = await electionDetailRes.json();
-  console.log(electionDetail);
+  if (
+    electionDetail.message === "Unauthorized" ||
+    electionDetail.message === "User does not have the right roles."
+  ) {
+    redirect("/api/logout");
+  }
+
   if (electionDetail.message === "Election not found") {
     return <p>Not found</p>;
   }
@@ -116,11 +123,11 @@ async function AdminDetailPage({
         )}
       </div>
 
-      <h2>Detail Grafik</h2>
+      {/* <h2>Detail Grafik</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full mt-6">
         <BarChartVertical />
       </div>
-      <LineChartMultiple />
+      <LineChartMultiple /> */}
     </section>
   );
 }

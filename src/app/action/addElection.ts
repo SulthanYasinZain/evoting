@@ -27,10 +27,10 @@ export default async function AddElection(prevstate: any, formData: FormData) {
     const res = await addElectionRes.json();
     console.log("res", res);
     if (!addElectionRes.ok) {
-      return { success: false, message: "Gagal melakukan Edit" };
+      return { success: false, message: "Gagal Membuat Pemilu. Coba Lagi." };
     }
 
-    return { success: true, message: "Berhasil melakukan Edit" };
+    return { success: true, message: "Berhasil Membuat Pemilu Baru" };
   } catch (error) {
     console.log("error", error);
     return { success: false, message: "Server Error. Coba Lagi Nanti" };

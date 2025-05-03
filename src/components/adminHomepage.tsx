@@ -9,7 +9,7 @@ export default function AdminHomepage({ data }: { data: any }) {
   const [search, setSearch] = useState<string>("");
   const [filter, setFilter] = useState<string>("all");
   const electionData = data || [];
-
+  console.log("electionData", electionData);
   const filteredData = electionData.filter((election: any) => {
     return (
       election.title.toLowerCase().includes(search.toLowerCase()) &&
