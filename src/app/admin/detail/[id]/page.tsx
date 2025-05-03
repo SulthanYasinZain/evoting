@@ -70,14 +70,14 @@ async function AdminDetailPage({
       </Link>
       <ElectionDetailCard electionDetail={electionDetail} />
       <div className="flex justify-between items-center w-full ">
-        <h2 className="text-gray-800 font-semibold text-2xl mt-8 mb-4">
+        <h2 className="text-gray-800 font-semibold text-2xl mt-8">
           Daftar Kandidat
         </h2>
         {filteredCandidates.length < 3 && (
           <AddCandidateDialog election_id={id} />
         )}
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 w-full  mt-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 w-full  mt-2">
         {filteredCandidates.length > 0 ? (
           filteredCandidates.map((candidate: any) => (
             <div

@@ -71,16 +71,15 @@ export default function EditCandidateDialog({
     router,
   ]);
 
-  console.log(candidate_image_url);
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <button className="border cursor-pointer w-full text-gray-800  rounded-lg px-4 py-2 hover:bg-neutral-200 transition duration-200 flex items-center justify-center">
+        <button className="border cursor-pointer w-full text-gray-800 rounded-lg px-4 py-2 hover:bg-neutral-200 transition duration-200 flex items-center justify-center">
           <Pencil className="w-4 h-4 mr-2" />
           Edit
         </button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] max-h-[80svh] flex flex-col">
+      <DialogContent className="sm:max-w-[425px] max-h-[90vh] overflow-hidden">
         <DialogHeader>
           <DialogTitle className="text-center">Edit Pemilu</DialogTitle>
           <DialogDescription className="text-center">
@@ -88,8 +87,7 @@ export default function EditCandidateDialog({
           </DialogDescription>
         </DialogHeader>
 
-        {/* Kontainer konten yang scrollable */}
-        <div className="overflow-y-auto flex-1 px-1 space-y-4 py-2">
+        <div className="overflow-y-auto max-h-[calc(90vh-150px)] px-1 py-4">
           <form
             action={EditCandidateAction}
             className="flex flex-col w-full space-y-4"
@@ -103,12 +101,18 @@ export default function EditCandidateDialog({
             />
 
             <ImageUpload candidate_image_url={candidate_image_url} />
-            <label htmlFor="title" className="block mb-1 font-medium">
-              Nomor Kandidat
-            </label>
-            <CandidateNumberSelection candidate_number={candidate_number} />
 
-            <div>
+            <div className="mt-4">
+              <label
+                htmlFor="candidate_number"
+                className="block mb-1 font-medium"
+              >
+                Nomor Kandidat
+              </label>
+              <CandidateNumberSelection candidate_number={candidate_number} />
+            </div>
+
+            <div className="mt-4">
               <label htmlFor="name" className="block mb-1 font-medium">
                 Nama Kandidat
               </label>
@@ -126,7 +130,7 @@ export default function EditCandidateDialog({
               />
             </div>
 
-            <div>
+            <div className="mt-4">
               <label htmlFor="vision" className="block mb-1 font-medium">
                 Visi
               </label>
@@ -143,8 +147,8 @@ export default function EditCandidateDialog({
               ></textarea>
             </div>
 
-            <div>
-              <label htmlFor="description" className="block mb-1 font-medium">
+            <div className="mt-4">
+              <label htmlFor="mission" className="block mb-1 font-medium">
                 Deskripsi
               </label>
               <textarea
@@ -162,7 +166,7 @@ export default function EditCandidateDialog({
           </form>
         </div>
 
-        <div className="sticky bottom-0 bg-white pt-4">
+        <div className="sticky bottom-0 bg-white pt-4 mt-2">
           <button
             disabled={isLoading}
             type="submit"

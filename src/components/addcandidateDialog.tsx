@@ -47,8 +47,8 @@ export default function AddCandidateDialog({
           Tambah Kandidat
         </button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] max-h-[80svh] flex flex-col">
-        <DialogHeader className="px-0">
+      <DialogContent className="sm:max-w-[425px] max-h-[90vh] overflow-hidden">
+        <DialogHeader>
           <DialogTitle className="text-center">
             Tambah Kandidat Baru
           </DialogTitle>
@@ -57,64 +57,72 @@ export default function AddCandidateDialog({
           </DialogDescription>
         </DialogHeader>
 
-        <form
-          action={AddCandidateAction}
-          className="flex flex-col w-full space-y-4 overflow-y-auto flex-1 px-1 pr-2"
-          id="addCandidate"
-        >
-          <input
-            type="hidden"
-            name="election_id"
-            value={election_id}
-            readOnly
-          />
-
-          <ImageUpload />
-          <label htmlFor="title" className="block mb-1 font-medium">
-            Nomor Kandidat
-          </label>
-          <CandidateNumberSelection />
-
-          <div>
-            <label htmlFor="name" className="block mb-1 font-medium">
-              Nama Kandidat
-            </label>
+        <div className="overflow-y-auto max-h-[calc(90vh-150px)] px-1 py-4">
+          <form
+            action={AddCandidateAction}
+            className="flex flex-col w-full space-y-4"
+            id="addCandidate"
+          >
             <input
-              type="text"
-              name="name"
-              id="name"
-              disabled={isLoading}
-              className="border border-gray-300 rounded-md p-2 w-full"
-              required
+              type="hidden"
+              name="election_id"
+              value={election_id}
+              readOnly
             />
-          </div>
 
-          <div>
-            <label htmlFor="vision" className="block mb-1 font-medium">
-              Visi
-            </label>
-            <textarea
-              name="vision"
-              id="vision"
-              placeholder="Tulis visi kandidat di sini..."
-              className="border border-gray-300 rounded-md p-2 w-full min-h-[80px]"
-            ></textarea>
-          </div>
+            <ImageUpload />
 
-          <div>
-            <label htmlFor="description" className="block mb-1 font-medium">
-              Deskripsi
-            </label>
-            <textarea
-              name="mission"
-              id="mission"
-              placeholder="Tulis deskripsi kandidat di sini..."
-              className="border border-gray-300 rounded-md p-2 w-full min-h-[80px]"
-            ></textarea>
-          </div>
-        </form>
+            <div className="mt-4">
+              <label
+                htmlFor="candidate_number"
+                className="block mb-1 font-medium"
+              >
+                Nomor Kandidat
+              </label>
+              <CandidateNumberSelection />
+            </div>
 
-        <div className="sticky bottom-0 bg-white pt-4 border-t mt-4">
+            <div className="mt-4">
+              <label htmlFor="name" className="block mb-1 font-medium">
+                Nama Kandidat
+              </label>
+              <input
+                type="text"
+                name="name"
+                id="name"
+                disabled={isLoading}
+                className="border border-gray-300 rounded-md p-2 w-full"
+                required
+              />
+            </div>
+
+            <div className="mt-4">
+              <label htmlFor="vision" className="block mb-1 font-medium">
+                Visi
+              </label>
+              <textarea
+                name="vision"
+                id="vision"
+                placeholder="Tulis visi kandidat di sini..."
+                className="border border-gray-300 rounded-md p-2 w-full min-h-[80px]"
+              ></textarea>
+            </div>
+
+            <div className="mt-4">
+              <label htmlFor="mission" className="block mb-1 font-medium">
+                Deskripsi
+              </label>
+              <textarea
+                name="mission"
+                id="mission"
+                placeholder="Tulis deskripsi kandidat di sini..."
+                className="border border-gray-300 rounded-md p-2 w-full min-h-[80px]"
+              ></textarea>
+            </div>
+          </form>
+        </div>
+
+        <div className="sticky bottom-0 bg-white pt-4 border-t mt-2">
           <button
             disabled={isLoading}
             type="submit"
