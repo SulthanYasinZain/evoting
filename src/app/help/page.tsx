@@ -9,7 +9,7 @@ export default function Page() {
   const panduanPenggunaData = [
     {
       title: "Masuk ke Sistem Pemilu",
-      video: "https://www.youtube.com/watch?v=example",
+      video: "/Login.mp4",
       description:
         "Gunakan NIM dan password yang sama dengan akun Siakad Anda untuk login ke dalam sistem.",
       alert:

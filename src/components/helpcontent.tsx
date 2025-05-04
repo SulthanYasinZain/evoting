@@ -4,6 +4,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import LazyVideo from "./Lazyvideo";
 function HelpContent({
   title,
   video,
@@ -19,12 +20,7 @@ function HelpContent({
     <div className="flex flex-col sm:flex-row border border-gray-200 rounded-lg shadow-sm overflow-hidden">
       <div className="relative w-full sm:w-1/2 aspect-[16/9]">
         <p className="hidden">{video}</p>
-        <Image
-          src={"https://placehold.co/800x400.png"}
-          alt=""
-          fill
-          className="object-cover"
-        />
+        <LazyVideo src={video} />
       </div>
       <div className="sm:w-1/2 p-6 flex flex-col justify-between">
         <div className="space-y-4">

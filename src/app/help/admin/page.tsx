@@ -9,7 +9,7 @@ export default function Page() {
   const panduanAdminData = [
     {
       title: "Akses ke Dasbor Administrator",
-      video: "https://www.youtube.com/watch?v=example",
+      video: "/dashboardAdmin.mp4",
       description:
         "Untuk mengakses dasbor administrator, silakan buka halaman log masuk dan masukkan kredensial administrator Anda. Pastikan Anda menggunakan akun yang terdaftar dengan peran administrator. Selanjutnya, ketikkan '/admin/home' untuk menuju halaman administrator.",
       alert:
@@ -17,13 +17,13 @@ export default function Page() {
     },
     {
       title: "Penambahan Pemilihan Umum Baru",
-      video: "https://www.youtube.com/watch?v=example",
+      video: "/MembuatPemilu.mp4",
       description:
         "Klik tombol 'Tambah Pemilu' pada dasbor administrator untuk membuat entri pemilihan umum yang baru. Isi seluruh informasi yang diperlukan, termasuk nama dan waktu pelaksanaan pemilihan.",
     },
     {
       title: "Penambahan Kandidat",
-      video: "https://www.youtube.com/watch?v=example",
+      video: "/AddKandidat.mp4",
       description:
         "Setelah berhasil membuat entri pemilihan umum, Anda dapat menambahkan kandidat melalui tombol 'Detail' yang akan mengarahkan Anda ke halaman detail pemilihan. Pada halaman ini, Anda dapat menambahkan kandidat dengan mengisi nama lengkap, visi, dan nomor urut kandidat.",
       alert:
@@ -31,7 +31,7 @@ export default function Page() {
     },
     {
       title: "Pengubahan Data Kandidat",
-      video: "https://www.youtube.com/watch?v=example",
+      video: "/EditKandidat.mp4",
       description:
         "Apabila Anda perlu melakukan perubahan informasi kandidat, silakan klik tombol 'Edit'. Anda dapat memperbarui nama lengkap, visi, dan nomor urut kandidat.",
     },
@@ -87,7 +87,7 @@ export default function Page() {
               onChange={() => setTab("Panduan Admin")}
               className="hidden"
             />
-            Panduan Pengguna
+            Panduan Admin
           </label>
 
           <label
