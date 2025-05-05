@@ -21,9 +21,7 @@ export default async function Navbar() {
             className="h-10 w-10"
           />
 
-          <span className="text-sm sm:text-xl font-medium">
-            Fakultas Hukum UPNVJ
-          </span>
+          <span className="text-sm sm:text-xl">Fakultas Hukum UPNVJ</span>
         </Link>
         <div className="flex items-center gap-4">
           {token && <LogoutButton />}

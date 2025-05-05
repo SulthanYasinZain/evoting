@@ -8,11 +8,11 @@ export default async function DeleteCandidate(
 ) {
   const cookieStore = await cookies();
   const token = cookieStore.get("token")?.value;
-  const candidatesId = formData.get("election_id") as string;
-
+  const candidatesId = formData.get("candidate_id") as string;
+  console.log("candidatesId", candidatesId);
   try {
     const deleteElectionRes = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/elections/${candidatesId}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/candidates/${candidatesId}`,
       {
         method: "DELETE",
         headers: {

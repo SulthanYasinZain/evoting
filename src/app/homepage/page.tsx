@@ -47,6 +47,12 @@ async function Homepage() {
 
   const hasVoted = await voteRes.json();
 
+  console.log("hasVoted", hasVoted);
+
+  if (hasVoted.message === "Unauthenticated.") {
+    redirect("/api/logout");
+  }
+
   if (hasVoted.message === "User does not have the right roles.") {
     return <NoElectionState activeElection={true} />;
   }
@@ -61,10 +67,6 @@ async function Homepage() {
       cache: "no-store",
     }
   );
-
-  if (!candidateRes.ok) {
-    redirect("/api/logout");
-  }
 
   const rawCandidates = await candidateRes.json();
 

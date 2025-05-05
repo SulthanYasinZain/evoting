@@ -61,14 +61,14 @@ export default async function Home() {
           {token ? (
             <Link
               href="/homepage"
-              className="inline-block bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded"
+              className="inline-block bg-red-600 hover:bg-red-700 text-neutral-100 px-6 py-2 rounded"
             >
               Voting Sekarang
             </Link>
           ) : (
             <Link
               href="/login"
-              className="inline-block bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded"
+              className="inline-block bg-red-600 hover:bg-red-700 text-neutral-100 px-6 py-2 rounded"
             >
               Login
             </Link>

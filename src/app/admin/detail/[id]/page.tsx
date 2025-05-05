@@ -9,9 +9,10 @@ import AddCandidateDialog from "@/components/addcandidateDialog";
 import Image from "next/image";
 import DeleteCandidateDialog from "@/components/deletecandidateDialog";
 import EditCandidateDialog from "@/components/editcandidateDialog";
-// import { BarChartVertical } from "@/components/barChart";
-// import { LineChartMultiple } from "@/components/lineChart";
+import { BarChartVertical } from "@/components/barChart";
 import { redirect } from "next/navigation";
+import { PieChartLabels } from "@/components/pieChart";
+import HourlyLineChart from "@/components/lineChart";
 async function AdminDetailPage({
   params,
 }: {
@@ -69,15 +70,16 @@ async function AdminDetailPage({
         <ArrowLeft className="h-5 w-5" /> <span>Kembali Ke Beranda</span>
       </Link>
       <ElectionDetailCard electionDetail={electionDetail} />
-      <div className="flex justify-between items-center w-full ">
-        <h2 className="text-gray-800 font-semibold text-2xl mt-8">
+      <div className="flex justify-between items-center w-full my-2">
+        <h2 className="text-gray-800 font-semibold text-2xl">
           Daftar Kandidat
         </h2>
         {filteredCandidates.length < 3 && (
           <AddCandidateDialog election_id={id} />
         )}
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 w-full  mt-2">
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 w-full">
         {filteredCandidates.length > 0 ? (
           filteredCandidates.map((candidate: any) => (
             <div
@@ -98,7 +100,7 @@ async function AdminDetailPage({
                 <h3 className="text-lg font-semibold text-center mt-2 line-clamp-1">
                   {candidate.name}
                 </h3>
-                <p className="text-gray-600 text-center mb-4 line-clamp-2">
+                <p className="text-gray-600 text-center mb-4 line-clamp-2 w-full">
                   {candidate.vision}
                 </p>
               </div>
@@ -117,17 +119,17 @@ async function AdminDetailPage({
             </div>
           ))
         ) : (
-          <p className="col-span-full text-center">
+          <p className="col-span-full text-center h-[350px] text-gray-500">
             Tidak ada kandidat untuk pemilihan ini.
           </p>
         )}
       </div>
 
-      {/* <h2>Detail Grafik</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full mt-6">
         <BarChartVertical />
+        <PieChartLabels />
       </div>
-      <LineChartMultiple /> */}
+      <HourlyLineChart />
     </section>
   );
 }

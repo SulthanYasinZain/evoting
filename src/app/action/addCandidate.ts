@@ -59,7 +59,6 @@ export default async function AddCandidate(
         headers: {
           Authorization: `Bearer ${token}`,
           Accept: "application/json",
-          // DON'T set Content-Type manually when using FormData
         },
         body: apiFormData,
       }

@@ -2,6 +2,7 @@
 import { HelpContent, HelpAccordion } from "@/components/helpcontent";
 import { useState } from "react";
 import { Accordion } from "@/components/ui/accordion";
+import { ArrowRight, MessageCircle } from "lucide-react";
 
 export default function Page() {
   const [tab, setTab] = useState<string>("Panduan Pengguna");
@@ -125,16 +126,32 @@ export default function Page() {
               />
             ))}
           {tab === "FAQ" && (
-            <Accordion type="single" collapsible>
-              {faqData.map((item, index) => (
-                <HelpAccordion
-                  key={index}
-                  item={`item-${index}`}
-                  question={item.question}
-                  answer={item.answer}
-                />
-              ))}
-            </Accordion>
+            <>
+              <Accordion type="single" collapsible>
+                {faqData.map((item, index) => (
+                  <HelpAccordion
+                    key={index}
+                    item={`item-${index}`}
+                    question={item.question}
+                    answer={item.answer}
+                  />
+                ))}
+              </Accordion>
+              <div className="space-y-2">
+                <p className="text-slate-600 text-center">
+                  Butuh informasi lebih lanjut? Hubungi admin kami.
+                </p>
+                <a
+                  href="/"
+                  target="_blank"
+                  className="group flex items-center justify-center gap-2 w-full py-3 px-4 rounded-full font-medium text-white transition-all duration-300 bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 hover:from-emerald-600 hover:via-teal-600 hover:to-cyan-600 shadow-md hover:shadow-lg"
+                >
+                  <MessageCircle className="w-5 h-5" />
+                  <span>Hubungi Admin via WhatsApp</span>
+                  <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+                </a>
+              </div>
+            </>
           )}
         </div>
       </div>
