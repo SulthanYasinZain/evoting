@@ -59,7 +59,7 @@ export default function EditCandidateDialog({
       setIsOpen(false);
       setTimeout(() => {
         toast.success(state.message);
-      }, 1000);
+      }, 2000);
     }
   }, [
     candidate_mission,
@@ -74,16 +74,16 @@ export default function EditCandidateDialog({
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <button className="border cursor-pointer w-full text-gray-800 rounded-lg px-4 py-2 hover:bg-neutral-200 transition duration-200 flex items-center justify-center">
+        <button className="border-r rounded-bl-lg cursor-pointer w-1/2 text-gray-800 px-6 py-4 hover:bg-neutral-200 transition duration-200 flex items-center justify-center">
           <Pencil className="w-4 h-4 mr-2" />
           Edit
         </button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] max-h-[90vh] overflow-hidden">
+      <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-hidden">
         <DialogHeader>
-          <DialogTitle className="text-center">Edit Pemilu</DialogTitle>
+          <DialogTitle className="text-center">Edit Kandidat</DialogTitle>
           <DialogDescription className="text-center">
-            Ubah data pemilu sesuai kebutuhan.
+            Ubah data kandidat sesuai kebutuhan.
           </DialogDescription>
         </DialogHeader>
 

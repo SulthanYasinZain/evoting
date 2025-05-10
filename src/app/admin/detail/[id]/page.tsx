@@ -1,18 +1,22 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { cookies } from "next/headers";
-import { Suspense } from "react";
 import LoadingState from "@/components/loadingState";
-import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
 import ElectionDetailCard from "@/components/electiondetailCard";
 import AddCandidateDialog from "@/components/addcandidateDialog";
-import Image from "next/image";
 import DeleteCandidateDialog from "@/components/deletecandidateDialog";
 import EditCandidateDialog from "@/components/editcandidateDialog";
-import { BarChartVertical } from "@/components/barChart";
-import { redirect } from "next/navigation";
 import { PieChartLabels } from "@/components/pieChart";
 import HourlyLineChart from "@/components/lineChart";
+import { BarChartVertical } from "@/components/barChart";
+
+import { redirect } from "next/navigation";
+import Image from "next/image";
+import Link from "next/link";
+import { cookies } from "next/headers";
+
+import { ArrowLeft } from "lucide-react";
+
+import { Suspense } from "react";
+
 async function AdminDetailPage({
   params,
 }: {
@@ -57,9 +61,10 @@ async function AdminDetailPage({
   const candidatesList = await candidatesListRes.json();
   const candidatesListData = candidatesList.data || [];
 
-  const filteredCandidates = candidatesListData.filter(
-    (candidate: any) => candidate.election_id === Number(id)
-  );
+  const filteredCandidates = candidatesListData
+    .filter((candidate: any) => candidate.election_id === Number(id))
+    .sort((a: any, b: any) => Number(a.number) - Number(b.number));
+
   console.log("filteredData", filteredCandidates);
   return (
     <section className="flex flex-col w-full px-4 h-auto min-h-[89svh]">
@@ -84,28 +89,34 @@ async function AdminDetailPage({
           filteredCandidates.map((candidate: any) => (
             <div
               key={candidate.id}
-              className="border rounded-xl p-4 bg-white shadow-md flex flex-col"
+              className="border rounded-xl bg-white shadow-md flex flex-col"
             >
               <div className="flex-grow flex flex-col items-center">
-                <Image
-                  src={
-                    candidate.photo_url || "https://placehold.co/400x200.png"
-                  }
-                  alt={candidate.name}
-                  width={400}
-                  height={200}
-                  className="rounded-lg mb-2"
-                  style={{ objectFit: "cover", flexShrink: 0 }}
-                />
-                <h3 className="text-lg font-semibold text-center mt-2 line-clamp-1">
+                <div className="relative aspect-video w-full mb-2">
+                  <span className="absolute top-2 left-2 h-8 w-8 z-20 rounded-full bg-white flex items-center justify-center font-semibold">
+                    {candidate.number}
+                  </span>
+
+                  <Image
+                    src={
+                      candidate.photo_url || "https://placehold.co/400x200.png"
+                    }
+                    alt={candidate.name}
+                    fill
+                    className="rounded-t-lg"
+                    style={{ objectFit: "cover", flexShrink: 0 }}
+                  />
+                </div>
+              </div>
+              <div className="text-center px-4">
+                <h3 className="text-2xl font-semibold text-center mt-2 line-clamp-1">
                   {candidate.name}
                 </h3>
-                <p className="text-gray-600 text-center mb-4 line-clamp-2 w-full">
+                <p className="text-gray-600 text-md text-center mb-4 line-clamp-2 w-full">
                   {candidate.vision}
                 </p>
               </div>
-
-              <div className="flex justify-center gap-2 w-full mt-auto pt-4 border-t">
+              <div className="flex justify-center w-full mt-auto border-t">
                 <EditCandidateDialog
                   candidate_id={candidate.id}
                   candidate_name={candidate.name}

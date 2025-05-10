@@ -40,7 +40,7 @@ export default function DeleteCandidateDialog({
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <button className="border cursor-pointer border-red-200 w-fit  text-red-500 rounded-lg px-4 py-2 hover:bg-red-100 transition duration-200 flex items-center justify-center">
+        <button className=" cursor-pointer border-red-200 w-1/2  text-red-500 rounded-br-lg px-4 py-2 hover:bg-red-100 transition duration-200 flex items-center justify-center">
           <Trash2 className="w-4 h-4" />
         </button>
       </DialogTrigger>

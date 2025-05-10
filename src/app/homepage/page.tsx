@@ -53,12 +53,13 @@ async function Homepage() {
     redirect("/api/logout");
   }
 
-  if (hasVoted.message === "User does not have the right roles.") {
-    return <NoElectionState activeElection={true} />;
-  }
+  // if (hasVoted.message === "User does not have the right roles.") {
+  //   return <NoElectionState activeElection={true} />;
+  // }
 
   const candidateRes = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/candidates`,
+    `${process.env.NEXT_PUBLIC_API_URL}/mahasiswa/candidates
+`,
     {
       headers: {
         Authorization: `Bearer ${token}`,

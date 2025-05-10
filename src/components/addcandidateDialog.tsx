@@ -47,7 +47,7 @@ export default function AddCandidateDialog({
           Tambah Kandidat
         </button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] max-h-[90vh] overflow-hidden">
+      <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-hidden">
         <DialogHeader>
           <DialogTitle className="text-center">
             Tambah Kandidat Baru

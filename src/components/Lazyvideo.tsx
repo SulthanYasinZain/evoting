@@ -11,11 +11,15 @@ export default function LazyVideo({ src }: { src?: string }) {
   return (
     <>
       {!isVideoLoaded && (
-        <Image
-          src="/video-placeholder.jpg"
-          alt="Lazy loaded video thumbnail"
-          fill
-        />
+        <div
+          style={{
+            background:
+              "linear-gradient(45deg, #FBD85A 0%, #E97D98 50%, #FA64CE 100%)",
+          }}
+          className=" w-full h-full "
+        >
+          <p className="opacity-0">placeholder</p>
+        </div>
       )}
 
       <video

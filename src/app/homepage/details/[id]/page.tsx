@@ -18,7 +18,7 @@ async function AdminDetailPage({
 
   try {
     const candidateDetailRes = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/candidates/${id}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/mahasiswa/candidates/${id}`,
       {
         next: { revalidate: 60 },
         method: "GET",
@@ -72,7 +72,7 @@ async function AdminDetailPage({
           Deskripsi Kandidat
         </h2>
 
-        <div className="text-gray-700 text-lg border rounded-lg p-6">
+        <div className="text-gray-700 text-lg border rounded-lg p-6 whitespace-pre-line">
           {candidateDetail.data.mission}
         </div>
 

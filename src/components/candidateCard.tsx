@@ -17,7 +17,7 @@ export default function CandidateCard({
 }) {
   return (
     <div className="w-full h-full p-4 border border-neutral-200 rounded-xl space-y-2 shadow-sm bg-white">
-      <div className="aspect-[2/1] relative w-full">
+      <div className="aspect-video relative w-full">
         <Image
           src={image_url || "https://placehold.co/800x400.png"}
           alt="Pemilu"
