@@ -1,5 +1,6 @@
 "use client";
 import { useActionState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import Vote from "@/app/action/vote";
 import { toast } from "sonner";
 import {
@@ -22,9 +23,12 @@ export default function VoteConfirmationDialog({
 }) {
   // const voteWithId = Vote.bind(null, candidate_id);
   const [state, voteAction, isLoading] = useActionState(Vote, null);
+  const Router = useRouter();
   useEffect(() => {
     if (state?.success === false) {
       toast.error(state.message);
+    } else {
+      Router.refresh();
     }
   });
   return (

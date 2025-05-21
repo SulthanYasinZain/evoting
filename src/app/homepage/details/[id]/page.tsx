@@ -35,7 +35,6 @@ async function AdminDetailPage({
 
     return (
       <section className="flex flex-col w-full px-4 py-6 h-auto min-h-[90svh]">
-        {/* Back button with consistent spacing */}
         <Link
           href={"/homepage"}
           className="flex items-center w-fit p-2 rounded gap-2 hover:bg-neutral-200 text-gray-700"
@@ -43,7 +42,6 @@ async function AdminDetailPage({
           <ArrowLeft className="h-5 w-5" /> <span>Kembali Ke Beranda</span>
         </Link>
 
-        {/* Candidate header card with consistent padding */}
         <div className="flex flex-col sm:flex-row w-full items-center bg-gradient-to-r from-red-600 to-red-800 text-white p-6 rounded-lg mt-6 gap-6">
           <Image
             src={
@@ -67,7 +65,6 @@ async function AdminDetailPage({
           </div>
         </div>
 
-        {/* Description section with consistent spacing */}
         <h2 className="text-gray-800 font-semibold text-2xl mt-8 mb-4">
           Deskripsi Kandidat
         </h2>
@@ -76,7 +73,6 @@ async function AdminDetailPage({
           {candidateDetail.data.mission}
         </div>
 
-        {/* Confirmation and button with consistent spacing */}
         <div className="flex border rounded-lg p-6 mt-6 mb-6">
           <Link
             href={"/homepage"}

@@ -7,29 +7,67 @@ type DataItem = {
   colorFrom: string;
   colorTo: string;
 };
+type Candidate = {
+  id: number;
+  name: string;
+  number: string;
+  votes: number;
+};
 
-const data: DataItem[] = [
-  {
-    name: "Kandidat 1",
-    value: 180,
-    colorFrom: "text-red-200",
-    colorTo: "text-red-300",
-  },
-  {
-    name: "Kandidat 2",
-    value: 230,
-    colorFrom: "text-fuchsia-200",
-    colorTo: "text-fuchsia-300",
-  },
-  {
-    name: "Kandidat 3",
-    value: 90,
-    colorFrom: "text-orange-200",
-    colorTo: "text-orange-300",
-  },
+type ElectionData = {
+  election_id: number;
+  title: string;
+  election_date: string;
+  status: "upcoming" | "ongoing" | "completed";
+  voter_count: number;
+  candidates: Candidate[];
+};
+
+type ElectionResponse = {
+  data: ElectionData;
+};
+
+const colorPalette: { from: string; to: string }[] = [
+  { from: "text-red-200", to: "text-red-300" },
+  { from: "text-fuchsia-200", to: "text-fuchsia-300" },
+  { from: "text-orange-200", to: "text-orange-300" },
+  { from: "text-green-200", to: "text-green-300" },
+  { from: "text-blue-200", to: "text-blue-300" },
+  { from: "text-emerald-200", to: "text-emerald-300" },
 ];
 
-export function PieChartLabels() {
+function transformToStyledChartData(
+  electionData: ElectionResponse
+): DataItem[] {
+  return electionData.data.candidates.map((candidate, index) => {
+    const color = colorPalette[index % colorPalette.length]; // cycle colors if > palette
+    return {
+      name: `Kandidat ${candidate.number}`,
+      value: candidate.votes,
+      colorFrom: color.from,
+      colorTo: color.to,
+    };
+  });
+}
+
+export function PieChartLabels({
+  electionData,
+}: {
+  electionData: ElectionResponse;
+}) {
+  if (
+    !electionData ||
+    !electionData.data ||
+    !electionData.data.candidates ||
+    electionData.data.voter_count === 0
+  ) {
+    return (
+      <div className="w-full h-[400px] flex justify-center items-center border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 rounded-lg shadow-md p-4">
+        <p>No Data Avaiable</p>
+      </div>
+    );
+  }
+  const data = transformToStyledChartData(electionData);
   // Chart dimensions
   const radius = Math.PI * 100;
   const gap = 0.02; // Gap between slices
@@ -60,13 +98,10 @@ export function PieChartLabels() {
   const MIN_ANGLE = 20;
 
   return (
-    <div>
-      <h2 className="text-xl font-semibold">
-        Statistik Total Suara per Kandidat
-      </h2>
+    <div className="border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 ">
+      <h2 className="text-xl font-semibold">Distribusi Suara</h2>
       <p className="text-sm text-gray-500 mb-4">
-        Diagram lingkaran menggambarkan proporsi suara yang diperoleh oleh
-        setiap kandidat dibandingkan dengan total suara yang masuk.
+        Persentase suara yang diperoleh masing-masing kandidat
       </p>
       <div className="relative max-w-[16rem] mx-auto">
         <svg

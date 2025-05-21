@@ -53,9 +53,12 @@ async function Homepage() {
     redirect("/api/logout");
   }
 
-  // if (hasVoted.message === "User does not have the right roles.") {
-  //   return <NoElectionState activeElection={true} />;
-  // }
+  if (
+    hasVoted.message === "User does not have the right roles." ||
+    hasVoted.has_voted === true
+  ) {
+    return <NoElectionState activeElection={true} />;
+  }
 
   const candidateRes = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/mahasiswa/candidates
@@ -76,8 +79,8 @@ async function Homepage() {
   );
 
   return (
-    <section className="flex flex-col items-center w-screen  px-4 h-auto min-h-[89svh]">
-      <div className="mt-6 w-full">
+    <section className="flex flex-col items-center w-screen px-4 h-auto min-h-[89svh]">
+      <div className="mt-6 w-full mx-4">
         <ElectionStatus
           hasVoted={hasVoted.has_voted}
           title={activeElection.data.name}

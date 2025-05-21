@@ -1,13 +1,50 @@
 import React, { CSSProperties } from "react";
 import { scaleBand, scaleLinear, max } from "d3";
 
-const data = [
-  { key: "Kandidat 1", value: 180 },
-  { key: "Kandidat 2", value: 230 },
-  { key: "Kandidat 3", value: 90 },
-];
+type Candidate = {
+  id: number;
+  name: string;
+  number: string;
+  votes: number;
+};
 
-export function BarChartVertical() {
+type ElectionData = {
+  election_id: number;
+  title: string;
+  election_date: string;
+  status: "upcoming" | "ongoing" | "completed";
+  voter_count: number;
+  candidates: Candidate[];
+};
+
+type ElectionResponse = {
+  data: ElectionData;
+};
+
+export function BarChartVertical({
+  electionData,
+}: {
+  electionData: ElectionResponse;
+}) {
+  if (
+    !electionData ||
+    !electionData.data ||
+    !electionData.data.candidates ||
+    electionData.data.voter_count === 0
+  ) {
+    return (
+      <div className="w-full h-[400px] flex justify-center items-center border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 rounded-lg shadow-md p-4">
+        <p>No Data Avaiable</p>
+      </div>
+    );
+  }
+
+  const data = electionData.data.candidates.map((candidate: Candidate) => {
+    return {
+      key: `Kandidat ${candidate.number}`,
+      value: candidate.votes,
+    };
+  });
   const minBars = 2;
   const filledData = [
     ...data,
@@ -28,13 +65,10 @@ export function BarChartVertical() {
     .range([100, 0]);
 
   return (
-    <div>
-      <h2 className="text-xl font-semibold">
-        Statistik Total Suara per Kandidat
-      </h2>
+    <div className="border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 ">
+      <h2 className="text-xl font-semibold">Perbandingan Suara Kandidat</h2>
       <p className="text-sm text-gray-500 mb-4">
-        Diagram batang ini menunjukkan jumlah total suara yang diterima oleh
-        masing-masing kandidat selama periode pemilihan.
+        Jumlah suara yang diperoleh masing-masing kandidat dalam pemilihan ini.
       </p>
       <div
         className="relative h-72 w-full grid"

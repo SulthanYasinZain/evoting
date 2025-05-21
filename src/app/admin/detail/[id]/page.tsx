@@ -4,9 +4,7 @@ import ElectionDetailCard from "@/components/electiondetailCard";
 import AddCandidateDialog from "@/components/addcandidateDialog";
 import DeleteCandidateDialog from "@/components/deletecandidateDialog";
 import EditCandidateDialog from "@/components/editcandidateDialog";
-import { PieChartLabels } from "@/components/pieChart";
-import HourlyLineChart from "@/components/lineChart";
-import { BarChartVertical } from "@/components/barChart";
+import { ChartSection } from "@/components/chartsection";
 
 import { redirect } from "next/navigation";
 import Image from "next/image";
@@ -65,7 +63,6 @@ async function AdminDetailPage({
     .filter((candidate: any) => candidate.election_id === Number(id))
     .sort((a: any, b: any) => Number(a.number) - Number(b.number));
 
-  console.log("filteredData", filteredCandidates);
   return (
     <section className="flex flex-col w-full px-4 h-auto min-h-[89svh]">
       <Link
@@ -136,11 +133,7 @@ async function AdminDetailPage({
         )}
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full mt-6">
-        <BarChartVertical />
-        <PieChartLabels />
-      </div>
-      <HourlyLineChart />
+      <ChartSection id={id} />
     </section>
   );
 }

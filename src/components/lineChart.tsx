@@ -116,7 +116,7 @@ export default function HourlyLineChart() {
   }
 
   return (
-    <div className="mt-6">
+    <div className="border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 ">
       <h2 className="text-xl font-semibold">
         Aktivitas Voting per Jam dalam 24 Jam Terakhir
       </h2>
@@ -285,7 +285,7 @@ export default function HourlyLineChart() {
             {/* X Axis - Custom formatting for hours */}
             {data.map((point, i) => {
               // Show more time points
-              if (i % 2 !== 0 && i !== data.length - 1) return null;
+              if (i % 6 !== 0 && i !== data.length - 1) return null;
 
               return (
                 <div key={i} className="overflow-visible text-zinc-500">
