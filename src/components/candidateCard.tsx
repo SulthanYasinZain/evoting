@@ -19,7 +19,11 @@ export default function CandidateCard({
     <div className="w-full h-full p-4 border border-neutral-200 rounded-xl space-y-2 shadow-sm bg-white">
       <div className="aspect-video relative w-full">
         <Image
-          src={image_url || "https://placehold.co/800x400.png"}
+          src={
+            image_url
+              ? `${process.env.NEXT_PUBLIC_API_URL}${image_url}`
+              : "https://placehold.co/800x400.png"
+          }
           alt="Pemilu"
           fill
           className="object-cover rounded-lg"

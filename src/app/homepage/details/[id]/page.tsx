@@ -45,7 +45,7 @@ async function AdminDetailPage({
         <div className="flex flex-col sm:flex-row w-full items-center bg-gradient-to-r from-red-600 to-red-800 text-white p-6 rounded-lg mt-6 gap-6">
           <Image
             src={
-              candidateDetail.data.image_url ||
+              `${process.env.NEXT_PUBLIC_API_URL}${candidateDetail.data.image_url}` ||
               "https://placehold.co/800x400.png"
             }
             alt="Candidate Image"

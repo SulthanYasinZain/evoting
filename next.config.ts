@@ -11,8 +11,14 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
-        hostname: "youtube.com",
+        hostname: "https://api.bobypratama.my.id",
         port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "http",
+        hostname: "127.0.0.1",
+        port: "8000",
         pathname: "/**",
       },
     ],

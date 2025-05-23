@@ -28,6 +28,7 @@ export default async function Login(
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
+      cache: "no-cache",
     });
 
     if (!response.ok) {

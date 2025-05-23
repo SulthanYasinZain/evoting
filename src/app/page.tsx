@@ -18,6 +18,9 @@ export default async function Home() {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
+        next: {
+          revalidate: 10,
+        },
       }
     );
 

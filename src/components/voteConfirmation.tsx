@@ -27,7 +27,7 @@ export default function VoteConfirmationDialog({
   useEffect(() => {
     if (state?.success === false) {
       toast.error(state.message);
-    } else {
+    } else if (state?.success === true) {
       Router.refresh();
     }
   });

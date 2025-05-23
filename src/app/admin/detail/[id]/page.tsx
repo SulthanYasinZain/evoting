@@ -96,7 +96,8 @@ async function AdminDetailPage({
 
                   <Image
                     src={
-                      candidate.photo_url || "https://placehold.co/400x200.png"
+                      `${process.env.NEXT_PUBLIC_API_URL}${candidate.photo_url}` ||
+                      "https://placehold.co/800x400.png"
                     }
                     alt={candidate.name}
                     fill

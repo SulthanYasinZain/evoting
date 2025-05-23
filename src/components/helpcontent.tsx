@@ -23,7 +23,7 @@ function HelpContent({
       </div>
       <div className="sm:w-1/2 p-6 flex flex-col justify-between">
         <div className="space-y-4">
-          <h3 className="text-2xl font-semibold text-gray-800">{title}</h3>
+          <h2 className="text-2xl font-semibold text-gray-800">{title}</h2>
           <p className="text-base text-gray-600">{description}</p>
         </div>
         {alert && alert.length > 0 && (

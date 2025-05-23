@@ -27,6 +27,7 @@ export default async function Navbar() {
           {token && <LogoutButton />}
           <Link
             href={"/help"}
+            aria-label="Bantuan"
             className="flex gap-2 p-2 rounded text-sm font-medium text-gray-700 hover:bg-neutral-200"
           >
             <HelpCircle className="h-5 w-5" />
