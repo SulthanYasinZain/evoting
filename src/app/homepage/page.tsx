@@ -33,7 +33,7 @@ async function Homepage() {
   if (activeElection?.message === "No active election found") {
     return <NoElectionState activeElection={false} />;
   }
-
+  console.log("activeElection", activeElection);
   const voteRes = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/votes/check/${activeElection.data.id}`,
     {

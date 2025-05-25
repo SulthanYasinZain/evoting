@@ -43,16 +43,17 @@ async function AdminDetailPage({
         </Link>
 
         <div className="flex flex-col sm:flex-row w-full items-center bg-gradient-to-r from-red-600 to-red-800 text-white p-6 rounded-lg mt-6 gap-6">
-          <Image
-            src={
-              `${process.env.NEXT_PUBLIC_API_URL}${candidateDetail.data.image_url}` ||
-              "https://placehold.co/800x400.png"
-            }
-            alt="Candidate Image"
-            width={800}
-            height={400}
-            className="rounded-xl"
-          />
+          <div className="aspect-[2/1] relative w-full">
+            <Image
+              src={
+                `${process.env.NEXT_PUBLIC_IMAGE_URL}${candidateDetail.data.image_url}` ||
+                "https://placehold.co/800x400.png"
+              }
+              alt="Candidate Image"
+              fill
+              className="rounded-xl"
+            />
+          </div>
 
           <div className="space-y-3">
             <Badge variant="secondary" className="mb-2">

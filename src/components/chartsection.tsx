@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { useEffect, useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -27,9 +28,13 @@ type ElectionResponse = {
 
 export function ChartSection({ id }: { id: string }) {
   const [data, setData] = useState<ElectionResponse | null>(null);
+  const [hourlyData, setHourlyData] = useState<any>(null);
   useEffect(() => {
     const source = new EventSource(
       `${process.env.NEXT_PUBLIC_API_URL}/dashboard/stream/${id}`
+    );
+    const source2 = new EventSource(
+      `${process.env.NEXT_PUBLIC_API_URL}/dashboard/election/${id}/hourly-data`
     );
     console.log("SSE connection established");
 
@@ -43,8 +48,19 @@ export function ChartSection({ id }: { id: string }) {
       console.error("SSE connection error", e);
     };
 
+    source2.onmessage = (event) => {
+      const parsed = JSON.parse(event.data);
+      console.log("Hourly data:", parsed);
+      setHourlyData(parsed);
+    };
+
+    source2.onerror = (e) => {
+      console.error("SSE error (hourly)", e);
+    };
+
     return () => {
       source.close();
+      source2.close();
     };
   }, [id]);
 
@@ -56,7 +72,7 @@ export function ChartSection({ id }: { id: string }) {
   }, [data]);
 
   if (!data) return <div>Loading...</div>;
-
+  console.log("hourlyData", hourlyData);
   return (
     <Tabs defaultValue="PerbandinganSuara" className=" h-[500px] mt-4">
       <TabsList className="grid w-full grid-cols-3">
@@ -71,7 +87,7 @@ export function ChartSection({ id }: { id: string }) {
         <PieChartLabels electionData={data} />
       </TabsContent>
       <TabsContent value="AktivitasPerJam">
-        <HourlyLineChart />
+        <HourlyLineChart electionData={hourlyData} />
       </TabsContent>
     </Tabs>
   );

@@ -38,7 +38,7 @@ export function BarChartVertical({
       </div>
     );
   }
-
+  console.log("Election Data:", electionData);
   const data = electionData.data.candidates.map((candidate: Candidate) => {
     return {
       key: `Kandidat ${candidate.number}`,

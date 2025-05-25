@@ -21,7 +21,7 @@ export default function CandidateCard({
         <Image
           src={
             image_url
-              ? `${process.env.NEXT_PUBLIC_API_URL}${image_url}`
+              ? `${process.env.NEXT_PUBLIC_IMAGE_URL}${image_url}`
               : "https://placehold.co/800x400.png"
           }
           alt="Pemilu"

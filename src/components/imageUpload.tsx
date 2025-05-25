@@ -27,7 +27,6 @@ export default function ImageUpload({
     }
   }, [candidate_image_url]);
 
-  // Determine dynamic styling based on state
   const borderColor = imageName
     ? "border-emerald-500 bg-emerald-50"
     : isHovered
@@ -60,7 +59,7 @@ export default function ImageUpload({
               {imageName}
             </p>
             <p className="text-sm text-gray-500 font-medium">
-              Click to change image
+              Klik untuk mengganti gambar
             </p>
           </>
         ) : (
@@ -75,9 +74,12 @@ export default function ImageUpload({
                 isHovered ? "text-gray-800" : "text-gray-700"
               }`}
             >
-              Click to upload an image
+              Klik untuk mengunggah gambar
             </p>
-            <p className="text-sm text-gray-500">JPG or PNG, max 2MB</p>
+            <p className="text-sm text-gray-500">JPG atau PNG, max 2MB</p>
+            <p className="text-sm text-gray-500">
+              Rekomendasi gambar dengan resolusi 1000 x 2000
+            </p>
           </>
         )}
       </label>

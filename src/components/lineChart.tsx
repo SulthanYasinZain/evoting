@@ -1,95 +1,85 @@
 import { CSSProperties } from "react";
 import { scaleTime, scaleLinear, line as d3_line, curveMonotoneX } from "d3";
 
-const candidate1 = [
-  { date: "2023-05-09T00:00:00", value: 5 },
-  { date: "2023-05-09T01:00:00", value: 4 },
-  { date: "2023-05-09T02:00:00", value: 3 },
-  { date: "2023-05-09T03:00:00", value: 3 },
-  { date: "2023-05-09T04:00:00", value: 5 },
-  { date: "2023-05-09T05:00:00", value: 6 },
-  { date: "2023-05-09T06:00:00", value: 8 },
-  { date: "2023-05-09T07:00:00", value: 8 },
-  { date: "2023-05-09T08:00:00", value: 10 },
-  { date: "2023-05-09T09:00:00", value: 12 },
-  { date: "2023-05-09T10:00:00", value: 10 },
-  { date: "2023-05-09T11:00:00", value: 10 },
-  { date: "2023-05-09T12:00:00", value: 10 },
-  { date: "2023-05-09T13:00:00", value: 8 },
-  { date: "2023-05-09T14:00:00", value: 8 },
-  { date: "2023-05-09T15:00:00", value: 7 },
-  { date: "2023-05-09T16:00:00", value: 7 },
-  { date: "2023-05-09T17:00:00", value: 8 },
-  { date: "2023-05-09T18:00:00", value: 8 },
-  { date: "2023-05-09T19:00:00", value: 8 },
-  { date: "2023-05-09T20:00:00", value: 6 },
-  { date: "2023-05-09T21:00:00", value: 6 },
-  { date: "2023-05-09T22:00:00", value: 6 },
-  { date: "2023-05-09T23:00:00", value: 6 }, // Total: 180
-];
+type Candidate = {
+  id: number;
+  name: string;
+  number: string;
+  votes: number;
+};
 
-const candidate2 = [
-  { date: "2023-05-09T00:00:00", value: 6 },
-  { date: "2023-05-09T01:00:00", value: 6 },
-  { date: "2023-05-09T02:00:00", value: 6 },
-  { date: "2023-05-09T03:00:00", value: 6 },
-  { date: "2023-05-09T04:00:00", value: 7 },
-  { date: "2023-05-09T05:00:00", value: 7 },
-  { date: "2023-05-09T06:00:00", value: 10 },
-  { date: "2023-05-09T07:00:00", value: 10 },
-  { date: "2023-05-09T08:00:00", value: 12 },
-  { date: "2023-05-09T09:00:00", value: 12 },
-  { date: "2023-05-09T10:00:00", value: 12 },
-  { date: "2023-05-09T11:00:00", value: 10 },
-  { date: "2023-05-09T12:00:00", value: 10 },
-  { date: "2023-05-09T13:00:00", value: 10 },
-  { date: "2023-05-09T14:00:00", value: 10 },
-  { date: "2023-05-09T15:00:00", value: 10 },
-  { date: "2023-05-09T16:00:00", value: 10 },
-  { date: "2023-05-09T17:00:00", value: 9 },
-  { date: "2023-05-09T18:00:00", value: 9 },
-  { date: "2023-05-09T19:00:00", value: 8 },
-  { date: "2023-05-09T20:00:00", value: 8 },
-  { date: "2023-05-09T21:00:00", value: 8 },
-  { date: "2023-05-09T22:00:00", value: 8 },
-  { date: "2023-05-09T23:00:00", value: 8 }, // Total: 230
-];
+type ElectionData = {
+  election_id: number;
+  title: string;
+  election_date: string;
+  status: "upcoming" | "ongoing" | "completed";
+  voter_count: number;
+  candidates: Candidate[];
+};
 
-const candidate3 = [
-  { date: "2023-05-09T00:00:00", value: 2 },
-  { date: "2023-05-09T01:00:00", value: 2 },
-  { date: "2023-05-09T02:00:00", value: 2 },
-  { date: "2023-05-09T03:00:00", value: 2 },
-  { date: "2023-05-09T04:00:00", value: 2 },
-  { date: "2023-05-09T05:00:00", value: 3 },
-  { date: "2023-05-09T06:00:00", value: 4 },
-  { date: "2023-05-09T07:00:00", value: 5 },
-  { date: "2023-05-09T08:00:00", value: 5 },
-  { date: "2023-05-09T09:00:00", value: 6 },
-  { date: "2023-05-09T10:00:00", value: 6 },
-  { date: "2023-05-09T11:00:00", value: 6 },
-  { date: "2023-05-09T12:00:00", value: 6 },
-  { date: "2023-05-09T13:00:00", value: 6 },
-  { date: "2023-05-09T14:00:00", value: 6 },
-  { date: "2023-05-09T15:00:00", value: 4 },
-  { date: "2023-05-09T16:00:00", value: 3 },
-  { date: "2023-05-09T17:00:00", value: 2 },
-  { date: "2023-05-09T18:00:00", value: 2 },
-  { date: "2023-05-09T19:00:00", value: 2 },
-  { date: "2023-05-09T20:00:00", value: 2 },
-  { date: "2023-05-09T21:00:00", value: 2 },
-  { date: "2023-05-09T22:00:00", value: 1 },
-  { date: "2023-05-09T23:00:00", value: 1 }, // Total: 90
-];
+type HourlyDataPoint = {
+  date: string;
+  value: number;
+};
 
-const data = candidate1.map((d) => ({ ...d, date: new Date(d.date) }));
-const data2 = candidate2.map((d) => ({ ...d, date: new Date(d.date) }));
-const data3 = candidate3.map((d) => ({ ...d, date: new Date(d.date) }));
+type HourlyElectionData = {
+  type: "combined";
+  general: ElectionData;
+  hourly: {
+    election_id: number;
+    election_title: string;
+    election_date: string;
+    candidates: {
+      [key: string]: {
+        candidate_name: string;
+        candidate_number: string;
+        hourly_data: HourlyDataPoint[];
+        total_votes: number;
+      };
+    };
+  };
+};
 
-export default function HourlyLineChart() {
+interface HourlyLineChartProps {
+  electionData: HourlyElectionData | null;
+}
+
+export default function HourlyLineChart({
+  electionData,
+}: HourlyLineChartProps) {
+  // Add null check
+  if (!electionData || !electionData.hourly) {
+    return (
+      <div className="border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 flex items-center justify-center h-[400px]">
+        <p className="">No Data Avaiable</p>
+      </div>
+    );
+  }
+
+  // Extract candidate data from the JSON structure
+  const candidateEntries = Object.entries(electionData.hourly.candidates);
+
+  // Get the first three candidates (or pad with empty arrays if less than 3)
+  const candidate1 = candidateEntries[0]?.[1]?.hourly_data || [];
+  const candidate2 = candidateEntries[1]?.[1]?.hourly_data || [];
+  const candidate3 = candidateEntries[2]?.[1]?.hourly_data || [];
+
+  const data = candidate1.map((d: HourlyDataPoint) => ({
+    ...d,
+    date: new Date(d.date),
+  }));
+  const data2 = candidate2.map((d: HourlyDataPoint) => ({
+    ...d,
+    date: new Date(d.date),
+  }));
+  const data3 = candidate3.map((d: HourlyDataPoint) => ({
+    ...d,
+    date: new Date(d.date),
+  }));
+
   // Find the maximum value across all datasets
   const allValues = [...candidate1, ...candidate2, ...candidate3].map(
-    (d) => d.value
+    (d: HourlyDataPoint) => d.value
   );
   const maxValue = Math.max(...allValues);
 
@@ -97,12 +87,15 @@ export default function HourlyLineChart() {
   const yDomainMax = Math.ceil(maxValue * 1.1);
 
   const xScale = scaleTime()
-    .domain([data[0].date, data[data.length - 1].date])
+    .domain([
+      data[0]?.date || new Date(),
+      data[data.length - 1]?.date || new Date(),
+    ])
     .range([0, 100]);
 
   const yScale = scaleLinear().domain([0, yDomainMax]).range([100, 0]);
 
-  const line = d3_line<(typeof data)[number]>()
+  const line = d3_line<{ date: Date; value: number }>()
     .x((d) => xScale(d.date))
     .y((d) => yScale(d.value))
     .curve(curveMonotoneX);
@@ -114,6 +107,14 @@ export default function HourlyLineChart() {
   if (!d || !d2 || !d3) {
     return null;
   }
+
+  // Get candidate names for legend
+  const candidate1Name =
+    candidateEntries[0]?.[1]?.candidate_name || "Kandidat 1";
+  const candidate2Name =
+    candidateEntries[1]?.[1]?.candidate_name || "Kandidat 2";
+  const candidate3Name =
+    candidateEntries[2]?.[1]?.candidate_name || "Kandidat 3";
 
   return (
     <div className="border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 ">
@@ -127,15 +128,15 @@ export default function HourlyLineChart() {
       <div className="flex items-center gap-2 mb-4">
         <div className="flex items-center gap-2 ">
           <div className="h-5 w-10 bg-red-500"></div>
-          <span>Kandidat 1</span>
+          <span>{candidate1Name}</span>
         </div>
         <div className="flex items-center gap-2 ">
           <div className="h-5 w-10 bg-fuchsia-500"></div>
-          <span>Kandidat 2</span>
+          <span>{candidate2Name}</span>
         </div>
         <div className="flex items-center gap-2 ">
           <div className="h-5 w-10 bg-orange-500"></div>
-          <span>Kandidat 3</span>
+          <span>{candidate3Name}</span>
         </div>
       </div>
       <div
@@ -239,7 +240,7 @@ export default function HourlyLineChart() {
             />
 
             {/* Circles 1  */}
-            {data.map((d, index) => (
+            {data.map((d, index: number) => (
               <path
                 key={index}
                 d={`M ${xScale(d.date)} ${yScale(d.value)} l 0.0001 0`}
@@ -253,7 +254,7 @@ export default function HourlyLineChart() {
             ))}
 
             {/* Circles 2 */}
-            {data2.map((d, index) => (
+            {data2.map((d, index: number) => (
               <path
                 key={index}
                 d={`M ${xScale(d.date)} ${yScale(d.value)} l 0.0001 0`}
@@ -267,7 +268,7 @@ export default function HourlyLineChart() {
             ))}
 
             {/* Circles 3 */}
-            {data3.map((d, index) => (
+            {data3.map((d, index: number) => (
               <path
                 key={index}
                 d={`M ${xScale(d.date)} ${yScale(d.value)} l 0.0001 0`}
@@ -283,7 +284,7 @@ export default function HourlyLineChart() {
 
           <div className="translate-y-2">
             {/* X Axis - Custom formatting for hours */}
-            {data.map((point, i) => {
+            {data.map((point, i: number) => {
               // Show more time points
               if (i % 6 !== 0 && i !== data.length - 1) return null;
 

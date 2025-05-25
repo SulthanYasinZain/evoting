@@ -100,7 +100,7 @@ export default function AdminHomepage({ data }: { data: any }) {
           ))}
         </div>
       ) : (
-        <div className=" flex items-center justify-center h-full">
+        <div className=" flex items-center justify-center h-[400px] w-full">
           <h2 className="text-gray-500 text-lg">Tidak ada pemilu ditemukan</h2>
         </div>
       )}

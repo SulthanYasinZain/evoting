@@ -116,7 +116,7 @@ export default function AddCandidateDialog({
                 name="mission"
                 id="mission"
                 placeholder="Tulis deskripsi kandidat di sini..."
-                className="border border-gray-300 rounded-md p-2 w-full min-h-[80px]"
+                className="border border-gray-300 rounded-md p-2 w-full min-h-[150px] mb-6"
               ></textarea>
             </div>
           </form>

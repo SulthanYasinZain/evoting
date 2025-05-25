@@ -62,7 +62,7 @@ export function PieChartLabels({
     electionData.data.voter_count === 0
   ) {
     return (
-      <div className="w-full h-[400px] flex justify-center items-center border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 rounded-lg shadow-md p-4">
+      <div className="w-full h-[500px] flex justify-center items-center border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 rounded-lg shadow-md p-4">
         <p>No Data Avaiable</p>
       </div>
     );

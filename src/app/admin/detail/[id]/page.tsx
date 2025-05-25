@@ -58,7 +58,6 @@ async function AdminDetailPage({
   );
   const candidatesList = await candidatesListRes.json();
   const candidatesListData = candidatesList.data || [];
-
   const filteredCandidates = candidatesListData
     .filter((candidate: any) => candidate.election_id === Number(id))
     .sort((a: any, b: any) => Number(a.number) - Number(b.number));
@@ -96,7 +95,7 @@ async function AdminDetailPage({
 
                   <Image
                     src={
-                      `${process.env.NEXT_PUBLIC_API_URL}${candidate.photo_url}` ||
+                      `${process.env.NEXT_PUBLIC_IMAGE_URL}${candidate.image_url}` ||
                       "https://placehold.co/800x400.png"
                     }
                     alt={candidate.name}
