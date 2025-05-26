@@ -40,27 +40,28 @@ export default async function Home() {
     <section className="flex justify-center items-center w-full px-4 h-auto min-h-[89svh] py-12">
       <div className="flex flex-col-reverse sm:flex-row justify-center items-center gap-8 w-full max-w-[1200px]">
         <div className="w-full sm:w-1/2 space-y-6 text-center sm:text-left">
-          <div className="flex gap-4 items-center">
+          <div className="flex  gap-4">
             <Image src={bawasra} alt="Logo baswara" width={50} height={50} />
             <Image src={pemira} alt="Logo pemira" width={50} height={50} />
             <Image src={pemira2} alt="Logo pemira" width={50} height={50} />
-
-            {activeElection &&
-            activeElection.message === "No active election found"
-              ? null
-              : activeElection && (
-                  <Badge
-                    variant="outline"
-                    className="mx-auto sm:mx-0 w-fit h-fit bg-gray-100 text-gray-800 px-3 py-1 rounded-full border-gray-200"
-                  >
-                    {activeElection?.data?.title?.charAt(0).toUpperCase() +
-                      activeElection?.data?.title?.slice(1)}
-                    <span className="bg-green-100 text-green-800 text-xs px-2 py-0.5 rounded-full ml-2">
-                      Active
-                    </span>
-                  </Badge>
-                )}
           </div>
+
+          {activeElection &&
+          activeElection.message === "No active election found"
+            ? null
+            : activeElection && (
+                <Badge
+                  variant="outline"
+                  className="mx-auto sm:mx-0 w-fit h-fit bg-gray-100 text-gray-800 px-3 py-1 rounded-full border-gray-200"
+                >
+                  {activeElection?.data?.title?.charAt(0).toUpperCase() +
+                    activeElection?.data?.title?.slice(1)}
+                  <span className="bg-green-100 text-green-800 text-xs px-2 py-0.5 rounded-full ml-2">
+                    Active
+                  </span>
+                </Badge>
+              )}
+
           <h1 className="text-gray-800 text-3xl sm:text-5xl font-semibold">
             Pemilihan Raya Fakultas Hukum 2025
           </h1>

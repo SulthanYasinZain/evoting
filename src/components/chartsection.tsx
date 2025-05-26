@@ -70,7 +70,7 @@ export function ChartSection({ id }: { id: string }) {
       console.log("Data state updated:", data);
       console.log("data hourly", hourlyData);
     }
-  }, [data]);
+  }, [data, hourlyData]);
 
   if (!data) return <div>Loading...</div>;
   return (
