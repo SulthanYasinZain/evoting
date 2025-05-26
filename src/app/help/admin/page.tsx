@@ -10,7 +10,7 @@ export default function Page() {
   const panduanAdminData = [
     {
       title: "Akses ke Dashboard Administrator",
-      video: "/dashboardAdmin.mp4",
+      video: "/adminLogin.webm",
       description:
         "Untuk mengakses dashboard administrator, mulailah dengan membuka halaman login dan masukkan kredensial akun Anda. Pastikan bahwa akun yang digunakan memiliki hak akses sebagai administrator. Setelah berhasil masuk, arahkan browser ke '/admin/home' untuk membuka halaman dashboard administrator.",
       alert:
@@ -18,13 +18,13 @@ export default function Page() {
     },
     {
       title: "Menambahkan Pemilihan Umum Baru",
-      video: "/MembuatPemilu.mp4",
+      video: "/membuatPemilu.webm",
       description:
         "Setelah berhasil masuk ke dashboard administrator, Anda dapat menambahkan pemilihan umum baru dengan mengklik tombol 'Tambah Pemilu'. Pastikan Anda mengisi seluruh informasi yang dibutuhkan dengan lengkap dan benar, termasuk nama pemilihan dan jadwal pelaksanaannya.",
     },
     {
       title: "Menambahkan Kandidat",
-      video: "/AddKandidat.mp4",
+      video: "/addkandidatRevisi.webm",
       description:
         "Setelah membuat entri pemilihan umum, Anda akan diarahkan ke halaman detail pemilihan melalui tombol 'Detail'. Pada halaman ini, Anda dapat menambahkan kandidat dengan melengkapi informasi seperti nama lengkap, visi, serta nomor urut kandidat.",
       alert:
@@ -32,7 +32,7 @@ export default function Page() {
     },
     {
       title: "Mengubah Informasi Kandidat",
-      video: "/editKandidat.mp4",
+      video: "/editKandidatRevisi.webm",
       description:
         "Jika Anda perlu memperbarui informasi kandidat, silakan klik tombol 'Edit' pada data kandidat yang dimaksud. Anda dapat memperbarui nama lengkap, visi, maupun nomor urut kandidat sesuai kebutuhan.",
     },
