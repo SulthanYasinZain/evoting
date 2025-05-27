@@ -118,7 +118,7 @@ export default function HourlyLineChart({
     ...candidate3DataPoints,
   ].map((d: HourlyDataPoint) => d.value);
   const maxValue = allValues.length > 0 ? Math.max(...allValues) : 0;
-  const yDomainMax = Math.max(1, Math.ceil(maxValue * 1.1));
+  const yDomainMax = Math.max(1, Math.ceil(maxValue * 1.0));
 
   const firstDate = processedData1[0]?.date;
   const lastDate = processedData1[processedData1.length - 1]?.date;
