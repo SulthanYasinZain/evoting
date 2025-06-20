@@ -11,6 +11,14 @@ export const metadata: Metadata = {
   title: "Pemira FH",
   description:
     "Selamat datang di website resmi Pemira fakultas Hukum UPNVJ, Login untuk mengikuti dalam pemilihan umum",
+  icons: [
+    {
+      rel: "icon",
+      url: "/logo_upn.png",
+      type: "image/png",
+      sizes: "32x32",
+    },
+  ],
 };
 
 export default function RootLayout({
@@ -20,12 +28,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      {/* <head>
-        <script
+      <head>
+        <link rel="icon" href="/logo_upn.png" type="image/png" />
+        {/* <script
           crossOrigin="anonymous"
           src="//unpkg.com/react-scan/dist/auto.global.js"
-        />
-      </head> */}
+        /> */}
+      </head>
       <body className={`${inter.className} antialiased`}>
         <Navbar />
         {children}

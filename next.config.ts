@@ -11,7 +11,7 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
-        hostname: "https://api.bobypratama.my.id",
+        hostname: "api.bobypratama.my.id",
         port: "",
         pathname: "/**",
       },

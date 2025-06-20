@@ -68,11 +68,11 @@ export function ChartSection({ id }: { id: string }) {
   useEffect(() => {
     if (data) {
       console.log("Data state updated:", data);
+      console.log("data hourly", hourlyData);
     }
-  }, [data]);
+  }, [data, hourlyData]);
 
   if (!data) return <div>Loading...</div>;
-  console.log("hourlyData", hourlyData);
   return (
     <Tabs defaultValue="PerbandinganSuara" className=" h-[500px] mt-4">
       <TabsList className="grid w-full grid-cols-3">

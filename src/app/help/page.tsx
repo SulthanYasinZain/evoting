@@ -10,7 +10,7 @@ export default function Page() {
   const panduanPenggunaData = [
     {
       title: "Masuk ke Sistem Pemilu",
-      video: "/Login.mp4",
+      video: "/Login.webm",
       description:
         "Gunakan NIM dan password yang sama dengan akun Siakad Anda untuk login ke dalam sistem.",
       alert:
@@ -18,13 +18,13 @@ export default function Page() {
     },
     {
       title: "Melihat Profil Kandidat",
-      video: "https://www.youtube.com/watch?v=example",
+      video: "/detail.webm",
       description:
         "Klik tombol 'Detail' pada masing-masing kandidat untuk melihat informasi lengkap, termasuk visi, misi, dan latar belakang. Gunakan tombol 'Selesai' untuk kembali ke halaman utama.",
     },
     {
       title: "Memberikan Suara",
-      video: "https://www.youtube.com/watch?v=example",
+      video: "/pilihkandidat.webm",
       description:
         "Setelah Anda yakin dengan pilihan kandidat, klik tombol 'Pilih' untuk mengirimkan suara Anda.",
       alert:
