@@ -1,8 +1,10 @@
+import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-export function middleware(req: NextRequest) {
-  const token = req.cookies.get("token")?.value;
+export async function middleware(req: NextRequest) {
+  const cookieStore = await cookies();
+  const token = cookieStore.get("token")?.value;
   console.log("Token:", token);
 
   const protectedPaths = ["/home", "/admin"];

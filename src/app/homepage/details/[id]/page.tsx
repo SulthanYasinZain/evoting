@@ -1,19 +1,17 @@
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
-import { cookies } from "next/headers";
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import ServerErrorState from "@/components/servererorState";
 import { Suspense } from "react";
 import LoadingState from "@/components/loadingState";
-
+import { getAuthToken } from "@/lib/auth";
 async function AdminDetailPage({
   params,
 }: {
   params: Promise<{ id: string }>;
 }) {
-  const cookieStore = await cookies();
-  const token = cookieStore.get("token")?.value;
+  const token = await getAuthToken();
   const { id } = await params;
 
   try {

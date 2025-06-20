@@ -1,17 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import ElectionStatus from "@/components/electionStatus";
-import { cookies } from "next/headers";
 import CandidateCard from "@/components/candidateCard";
 import NoElectionState from "@/components/noelectionState";
 import { Suspense } from "react";
-import LoadingState from "@/components/loadingState";
 import ServerErorState from "@/components/servererorState";
 import { redirect } from "next/navigation";
+import { getAuthToken } from "@/lib/auth";
+import { Skeleton } from "@/components/ui/skeleton";
 
 async function Homepage() {
-  const cookieStore = await cookies();
-  const token = cookieStore.get("token")?.value;
+  const token = await getAuthToken();
   let activeElection = null;
 
   try {
@@ -118,9 +117,38 @@ async function Homepage() {
   );
 }
 
+function Loading() {
+  const SkeletonCard = () => (
+    <div className="w-full h-full p-4 border border-neutral-200 rounded-xl space-y-2 shadow-sm bg-white">
+      <Skeleton className="aspect-video w-full" />
+      <Skeleton className="w-full h-8" />
+      <div className="border-b border-neutral-200"></div>
+      <Skeleton className="w-full h-8" />
+      <div className="w-full flex gap-2 mt-4">
+        <Skeleton className="w-1/2 h-10" />
+        <Skeleton className="w-1/2 h-10" />
+      </div>
+    </div>
+  );
+
+  return (
+    <section className="flex flex-col items-center w-screen px-4 h-auto min-h-[89svh]">
+      <div className="mt-6 w-full mx-4">
+        <Skeleton className="w-full h-14" />
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 w-full mt-6">
+        {Array.from({ length: 3 }).map((_, i) => (
+          <SkeletonCard key={i} />
+        ))}
+      </div>
+    </section>
+  );
+}
+
 export default function Page() {
   return (
-    <Suspense fallback={<LoadingState />}>
+    <Suspense fallback={<Loading />}>
       <Homepage />
     </Suspense>
   );

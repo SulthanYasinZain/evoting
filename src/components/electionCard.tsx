@@ -92,7 +92,7 @@ export default function ElectionCard({
           </div>
         </div>
         <Link
-          href={`/admin/detail/${id}`}
+          href={`/admin/details/${id}`}
           className="border text-gray-800 rounded-lg px-4 py-2 hover:bg-neutral-200 transition duration-200 flex items-center justify-center"
         >
           <Vote className="w-4 h-4 mr-2" />
