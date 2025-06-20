@@ -8,13 +8,14 @@ import ServerErorState from "@/components/servererorState";
 import { redirect } from "next/navigation";
 import { getAuthToken } from "@/lib/auth";
 import { Skeleton } from "@/components/ui/skeleton";
+import { safeFetch } from "@/lib/safeFetch";
 
 async function Homepage() {
   const token = await getAuthToken();
   let activeElection = null;
 
   try {
-    const res = await fetch(
+    activeElection = await safeFetch(
       `${process.env.NEXT_PUBLIC_API_URL}/current-election`,
       {
         method: "GET",
@@ -22,18 +23,14 @@ async function Homepage() {
         cache: "no-store",
       }
     );
-
-    activeElection = await res.json();
+    if (activeElection?.message === "No active election found") {
+      return <NoElectionState activeElection={false} />;
+    }
   } catch (err) {
-    console.error("Election error", err);
     return <ServerErorState />;
   }
 
-  if (activeElection?.message === "No active election found") {
-    return <NoElectionState activeElection={false} />;
-  }
-  console.log("activeElection", activeElection);
-  const voteRes = await fetch(
+  const voteRes = await safeFetch(
     `${process.env.NEXT_PUBLIC_API_URL}/votes/check/${activeElection.data.id}`,
     {
       headers: {
@@ -44,24 +41,19 @@ async function Homepage() {
     }
   );
 
-  const hasVoted = await voteRes.json();
-
-  console.log("hasVoted", hasVoted);
-
-  if (hasVoted.message === "Unauthenticated.") {
+  if (voteRes.message === "Unauthenticated.") {
     redirect("/api/logout");
   }
 
   if (
-    hasVoted.message === "User does not have the right roles." ||
-    hasVoted.has_voted === true
+    voteRes.message === "User does not have the right roles." ||
+    voteRes.has_voted === true
   ) {
     return <NoElectionState activeElection={true} />;
   }
 
-  const candidateRes = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/mahasiswa/candidates
-`,
+  const candidateRes = await safeFetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/mahasiswa/candidates`,
     {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -71,9 +63,7 @@ async function Homepage() {
     }
   );
 
-  const rawCandidates = await candidateRes.json();
-
-  const candidates = rawCandidates.data.filter(
+  const candidates = candidateRes.data.filter(
     (c: any) => c.election_id === activeElection.data.id
   );
 
@@ -81,7 +71,7 @@ async function Homepage() {
     <section className="flex flex-col items-center w-screen px-4 h-auto min-h-[89svh]">
       <div className="mt-6 w-full mx-4">
         <ElectionStatus
-          hasVoted={hasVoted.has_voted}
+          hasVoted={voteRes.has_voted}
           title={activeElection.data.name}
           time={(() => {
             if (!activeElection.data.election_date) return "";
