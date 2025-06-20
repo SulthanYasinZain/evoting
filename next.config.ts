@@ -1,16 +1,18 @@
 import type { NextConfig } from "next";
-
+const isProd = process.env.NODE_ENV === "production";
 const nextConfig: NextConfig = {
   experimental: {
     serverActions: {
       bodySizeLimit: "4mb",
     },
   },
-  compiler: {
-    removeConsole: {
-      exclude: ["error", "warn", "info", "debug"],
-    },
-  },
+  compiler: isProd
+    ? {
+        removeConsole: {
+          exclude: ["error", "warn", "info", "debug"],
+        },
+      }
+    : {},
   images: {
     remotePatterns: [
       {

@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import ElectionStatus from "@/components/electionStatus";
 import CandidateCard from "@/components/candidateCard";
 import NoElectionState from "@/components/noelectionState";
@@ -9,10 +7,23 @@ import { redirect } from "next/navigation";
 import { getAuthToken } from "@/lib/auth";
 import { Skeleton } from "@/components/ui/skeleton";
 import { safeFetch } from "@/lib/safeFetch";
+import { getSisaWaktuPemilihan } from "@/lib/getElectionCountdown";
+
+type Candidate = {
+  id: number;
+  election_id: number;
+  number: string;
+  name: string;
+  vision: string;
+  mission: string;
+  image_url: string;
+  created_at: string;
+  updated_at: string;
+};
 
 async function Homepage() {
   const token = await getAuthToken();
-  let activeElection = null;
+  let activeElection;
 
   try {
     activeElection = await safeFetch(
@@ -29,7 +40,7 @@ async function Homepage() {
   } catch (err) {
     return <ServerErorState />;
   }
-
+  console.log("Active Election:", activeElection);
   const voteRes = await safeFetch(
     `${process.env.NEXT_PUBLIC_API_URL}/votes/check/${activeElection.data.id}`,
     {
@@ -52,7 +63,7 @@ async function Homepage() {
     return <NoElectionState activeElection={true} />;
   }
 
-  const candidateRes = await safeFetch(
+  const candidateRes: { data: Candidate[] } = await safeFetch(
     `${process.env.NEXT_PUBLIC_API_URL}/mahasiswa/candidates`,
     {
       headers: {
@@ -64,30 +75,19 @@ async function Homepage() {
   );
 
   const candidates = candidateRes.data.filter(
-    (c: any) => c.election_id === activeElection.data.id
+    (c: Candidate) => c.election_id === activeElection.data.id
   );
 
+  if (candidates.length === 0) {
+    return <NoElectionState activeElection={false} />;
+  }
   return (
     <section className="flex flex-col items-center w-screen px-4 h-auto min-h-[89svh]">
       <div className="mt-6 w-full mx-4">
         <ElectionStatus
           hasVoted={voteRes.has_voted}
           title={activeElection.data.name}
-          time={(() => {
-            if (!activeElection.data.election_date) return "";
-            const electionDate = new Date(activeElection.data.election_date);
-            const now = new Date();
-            const diff = electionDate.getTime() - now.getTime();
-            const hours = Math.ceil(diff / (1000 * 60 * 60));
-
-            if (hours > 0) {
-              return `${hours} jam lagi`;
-            } else if (hours <= 0) {
-              return "Waktu pemilihan telah habis";
-            } else {
-              return "Waktu pemilihan telah tiba!";
-            }
-          })()}
+          time={getSisaWaktuPemilihan(activeElection.data.election_date)}
         />
       </div>
 
