@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
+import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 
 export default async function AddElection(prevstate: any, formData: FormData) {
@@ -29,7 +30,7 @@ export default async function AddElection(prevstate: any, formData: FormData) {
     if (!addElectionRes.ok) {
       return { success: false, message: "Gagal Membuat Pemilu. Coba Lagi." };
     }
-
+    revalidatePath("/admin/home");
     return { success: true, message: "Berhasil Membuat Pemilu Baru" };
   } catch (error) {
     console.log("error", error);

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import VoteConfirmationDialog from "./voteConfirmation";
+import VoteConfirmationDialog from "../shared/voteConfirmation";
 
 export default function CandidateCard({
   candidate_id,

@@ -6,6 +6,7 @@ import { cookies } from "next/headers";
 import bawasra from "@/assets/images/bawasra.jpg";
 import pemira from "@/assets/images/pemira.jpg";
 import pemira2 from "@/assets/images/pemira2.jpg";
+import { getSisaWaktuPemilihan } from "@/lib/getElectionCountdown";
 export default async function Home() {
   const cookieStore = await cookies();
   const token = cookieStore.get("token")?.value;
@@ -25,7 +26,6 @@ export default async function Home() {
         },
       }
     );
-
     if (!activeElectionRes.ok) {
       throw new Error(`Server error: ${activeElectionRes.status}`);
     }
@@ -46,21 +46,32 @@ export default async function Home() {
             <Image src={pemira2} alt="Logo pemira" width={50} height={50} />
           </div>
 
-          {activeElection &&
-          activeElection.message === "No active election found"
-            ? null
-            : activeElection && (
-                <Badge
-                  variant="outline"
-                  className="mx-auto sm:mx-0 w-fit h-fit bg-gray-100 text-gray-800 px-3 py-1 rounded-full border-gray-200"
-                >
-                  {activeElection?.data?.title?.charAt(0).toUpperCase() +
-                    activeElection?.data?.title?.slice(1)}
-                  <span className="bg-green-100 text-green-800 text-xs px-2 py-0.5 rounded-full ml-2">
-                    Active
-                  </span>
-                </Badge>
-              )}
+          {(() => {
+            const isElectionValid =
+              activeElection &&
+              activeElection.message !== "No active election found" &&
+              activeElection.data?.status === "active" &&
+              getSisaWaktuPemilihan(activeElection.data.election_date) !==
+                "Waktu pemilihan telah habis";
+
+            if (!isElectionValid) return null;
+
+            const title =
+              activeElection.data.title.charAt(0).toUpperCase() +
+              activeElection.data.title.slice(1);
+
+            return (
+              <Badge
+                variant="outline"
+                className="mx-auto sm:mx-0 w-fit h-fit bg-gray-100 text-gray-800 px-3 py-1 rounded-full border-gray-200"
+              >
+                {title}
+                <span className="bg-green-100 text-green-800 text-xs px-2 py-0.5 rounded-full ml-2">
+                  Active
+                </span>
+              </Badge>
+            );
+          })()}
 
           <h1 className="text-gray-800 text-3xl sm:text-5xl font-semibold">
             Pemilihan Raya Fakultas Hukum 2025
@@ -72,7 +83,7 @@ export default async function Home() {
           {token ? (
             <Link
               href="/homepage"
-              className="inline-block bg-red-600 hover:bg-red-700 text-neutral-100 px-6 py-2 rounded"
+              className="inline-block bg-red-600 hover:bg-red-700 text-neutralz-100 px-6 py-2 rounded"
             >
               Voting Sekarang
             </Link>

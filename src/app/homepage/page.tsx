@@ -1,18 +1,17 @@
-import ElectionStatus from "@/components/electionStatus";
-import CandidateCard from "@/components/candidateCard";
-import NoElectionState from "@/components/noelectionState";
+import ElectionStatus from "@/components/admin/electionStatus";
+import CandidateCard from "@/components/candidates/candidateCard";
+import NoElectionState from "@/components/shared/noelectionState";
 import { Suspense } from "react";
-import ServerErorState from "@/components/servererorState";
+import ServerErorState from "@/components/shared/servererorState";
 import { redirect } from "next/navigation";
 import { getAuthToken } from "@/lib/auth";
 import { Skeleton } from "@/components/ui/skeleton";
-import { safeFetch } from "@/lib/safeFetch";
 import { getSisaWaktuPemilihan } from "@/lib/getElectionCountdown";
 
 type Candidate = {
   id: number;
   election_id: number;
-  number: string;
+  number: number;
   name: string;
   vision: string;
   mission: string;
@@ -23,25 +22,30 @@ type Candidate = {
 
 async function Homepage() {
   const token = await getAuthToken();
+
+  if (!token) {
+    redirect("/");
+  }
   let activeElection;
 
   try {
-    activeElection = await safeFetch(
+    activeElection = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/current-election`,
       {
         method: "GET",
         headers: { Accept: "application/json" },
-        cache: "no-store",
+        cache: "force-cache",
       }
-    );
-    if (activeElection?.message === "No active election found") {
+    ).then((res) => res.json());
+    if (activeElection.message === "No active election found") {
       return <NoElectionState activeElection={false} />;
     }
   } catch (err) {
+    console.error("Error fetching active election:", err);
     return <ServerErorState />;
   }
   console.log("Active Election:", activeElection);
-  const voteRes = await safeFetch(
+  const voteRes = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/votes/check/${activeElection.data.id}`,
     {
       headers: {
@@ -50,29 +54,37 @@ async function Homepage() {
       },
       cache: "no-store",
     }
-  );
+  ).then((res) => res.json());
 
   if (voteRes.message === "Unauthenticated.") {
     redirect("/api/logout");
   }
 
+  const sisaWaktu = getSisaWaktuPemilihan(activeElection.data.election_date);
+  const isExpired = sisaWaktu === "Waktu pemilihan telah habis";
+
   if (
     voteRes.message === "User does not have the right roles." ||
-    voteRes.has_voted === true
+    voteRes.has_voted === true ||
+    (isExpired && voteRes.has_voted)
   ) {
     return <NoElectionState activeElection={true} />;
   }
 
-  const candidateRes: { data: Candidate[] } = await safeFetch(
+  if (isExpired && !voteRes.has_voted) {
+    return <NoElectionState activeElection={false} />;
+  }
+
+  const candidateRes: { data: Candidate[] } = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/mahasiswa/candidates`,
     {
       headers: {
         Authorization: `Bearer ${token}`,
         Accept: "application/json",
       },
-      cache: "no-store",
+      next: { revalidate: 15 },
     }
-  );
+  ).then((res) => res.json());
 
   const candidates = candidateRes.data.filter(
     (c: Candidate) => c.election_id === activeElection.data.id
@@ -81,6 +93,7 @@ async function Homepage() {
   if (candidates.length === 0) {
     return <NoElectionState activeElection={false} />;
   }
+
   return (
     <section className="flex flex-col items-center w-screen px-4 h-auto min-h-[89svh]">
       <div className="mt-6 w-full mx-4">
@@ -92,7 +105,7 @@ async function Homepage() {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 w-full  mt-6">
-        {candidates.map((candidate: any) => (
+        {candidates.map((candidate: Candidate) => (
           <CandidateCard
             candidate_id={candidate.id}
             image_url={candidate.image_url}

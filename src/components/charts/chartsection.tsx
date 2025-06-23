@@ -2,9 +2,9 @@
 "use client";
 import { useEffect, useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { PieChartLabels } from "@/components/pieChart";
-import HourlyLineChart from "@/components/lineChart";
-import { BarChartVertical } from "@/components/barChart";
+import { PieChartLabels } from "@/components/charts/pieChart";
+import HourlyLineChart from "@/components/charts/lineChart";
+import { BarChartVertical } from "@/components/charts/barChart";
 
 type Candidate = {
   id: number;

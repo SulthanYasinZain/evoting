@@ -1,7 +1,7 @@
 "use client";
 import { useActionState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import Vote from "@/app/action/vote";
+import Vote from "@/lib/action/vote";
 import { toast } from "sonner";
 import {
   Dialog,

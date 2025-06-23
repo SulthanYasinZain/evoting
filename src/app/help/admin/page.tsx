@@ -1,5 +1,5 @@
 "use client";
-import { HelpContent, HelpAccordion } from "@/components/helpcontent";
+import { HelpContent, HelpAccordion } from "@/components/shared/helpcontent";
 import { useState } from "react";
 import { Accordion } from "@/components/ui/accordion";
 import { ArrowRight, Bug } from "lucide-react";

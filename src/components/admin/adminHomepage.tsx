@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import AddElectionDialog from "./addelectionDialog";
-import ElectionCard from "@/components/electionCard";
+import AddElectionDialog from "../dialogs/addelectionDialog";
+import ElectionCard from "@/components/admin/electionCard";
 import { useState } from "react";
 import { Search, Calendar, CheckCircle, XCircle, Clock } from "lucide-react";
 

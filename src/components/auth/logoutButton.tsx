@@ -1,7 +1,7 @@
 "use client";
 import { LogOut } from "lucide-react";
 
-import Logout from "@/app/action/logout";
+import Logout from "@/lib/action/logout";
 export default function LogoutButton() {
   return (
     <form action={Logout}>

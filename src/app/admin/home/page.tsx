@@ -1,8 +1,8 @@
 // app/admin/home/page.tsx
 import { cookies } from "next/headers";
-import AdminHomepage from "@/components/adminHomepage";
+import AdminHomepage from "@/components/admin/adminHomepage";
 import { Suspense } from "react";
-import LoadingState from "@/components/loadingState";
+import LoadingState from "@/components/shared/loadingState";
 import { redirect } from "next/navigation";
 
 async function AdminPage() {

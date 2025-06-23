@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import LoadingState from "@/components/loadingState";
-import ElectionDetailCard from "@/components/electiondetailCard";
-import AddCandidateDialog from "@/components/addcandidateDialog";
-import DeleteCandidateDialog from "@/components/deletecandidateDialog";
-import EditCandidateDialog from "@/components/editcandidateDialog";
-import { ChartSection } from "@/components/chartsection";
+import LoadingState from "@/components/shared/loadingState";
+import ElectionDetailCard from "@/components/admin/electiondetailCard";
+import AddCandidateDialog from "@/components/dialogs/addcandidateDialog";
+import DeleteCandidateDialog from "@/components/dialogs/deletecandidateDialog";
+import EditCandidateDialog from "@/components/dialogs/editcandidateDialog";
+import { ChartSection } from "@/components/charts/chartsection";
 
 import { redirect } from "next/navigation";
 import Image from "next/image";

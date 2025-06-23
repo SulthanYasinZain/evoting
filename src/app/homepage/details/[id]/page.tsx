@@ -2,9 +2,9 @@ import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
-import ServerErrorState from "@/components/servererorState";
+import ServerErrorState from "@/components/shared/servererorState";
 import { Suspense } from "react";
-import LoadingState from "@/components/loadingState";
+import LoadingState from "@/components/shared/loadingState";
 import { getAuthToken } from "@/lib/auth";
 async function AdminDetailPage({
   params,

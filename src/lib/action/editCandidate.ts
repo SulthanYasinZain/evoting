@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
 
+import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 
 export default async function EditCandidate(
@@ -69,7 +70,7 @@ export default async function EditCandidate(
         }`,
       };
     }
-
+    revalidatePath("/admin/home");
     console.log("Candidate Edited successfully");
     return { success: true, message: "Candidate added successfully" };
   } catch (error) {

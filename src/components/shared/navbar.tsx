@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { HelpCircle } from "lucide-react";
-import LogoutButton from "./logoutButton";
+import LogoutButton from "../auth/logoutButton";
 import Logo from "@/assets/images/logo_upn.png";
 import { cookies } from "next/headers";
 import Link from "next/link";

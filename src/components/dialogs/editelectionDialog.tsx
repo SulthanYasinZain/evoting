@@ -1,6 +1,6 @@
 "use client";
 import { useActionState, useEffect, useState } from "react";
-import UpdateElection from "@/app/action/updateElection";
+import UpdateElection from "@/lib/action/updateElection";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import {

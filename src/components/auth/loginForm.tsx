@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useActionState, useEffect } from "react";
-import login from "@/app/action/login";
+import login from "@/lib/action/login";
 import { Loader2 } from "lucide-react";
 import Logo from "@/assets/images/logo_upn.png";
 import { toast } from "sonner";

@@ -1,7 +1,7 @@
 "use client";
 import { useActionState, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import DeleteElection from "@/app/action/deleteElection";
+import DeleteElection from "@/lib/action/deleteElection";
 import { toast } from "sonner";
 import {
   Dialog,
